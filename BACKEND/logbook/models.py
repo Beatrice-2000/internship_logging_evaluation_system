@@ -2,7 +2,6 @@ from django.db import models
 from users.models import CustomUser
 from placements.models import InternshipPlacement
 
-#Testing
 
 class WeeklyLog(models.Model):
     STATUS_CHOICES = [
