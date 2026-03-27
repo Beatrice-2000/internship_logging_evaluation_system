@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 # ---------------------
 # User Model
 # ---------------------
-class User(AbstractUser):
+class CustomUser(AbstractUser):
     ROLE_CHOICES = [
         ('student', 'Student Intern'),
         ('workplace_supervisor', 'Workplace Supervisor'),
@@ -23,13 +23,13 @@ class User(AbstractUser):
 # ---------------------
 class InternshipPlacement(models.Model):
     student = models.ForeignKey(
-        User,
+        CustomUser,
         on_delete=models.CASCADE,
         limit_choices_to={'role': 'student'}
     )
 
     workplace_supervisor = models.ForeignKey(
-        User,
+        CustomUser,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -38,7 +38,7 @@ class InternshipPlacement(models.Model):
     )
 
     academic_supervisor = models.ForeignKey(
-        User,
+        CustomUser,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -102,7 +102,7 @@ class WeeklyLog(models.Model):
 class SupervisorReview(models.Model):
     log = models.OneToOneField(WeeklyLog, on_delete=models.CASCADE)
     supervisor = models.ForeignKey(
-        User,
+        CustomUser,
         on_delete=models.SET_NULL,
         null=True,
         limit_choices_to={'role__in': ['workplace_supervisor', 'academic_supervisor']}
@@ -120,7 +120,7 @@ class SupervisorReview(models.Model):
 class AcademicEvaluation(models.Model):
     placement = models.OneToOneField(InternshipPlacement, on_delete=models.CASCADE)
     academic_supervisor = models.ForeignKey(
-        User,
+        CustomUser,
         on_delete=models.SET_NULL,
         null=True,
         limit_choices_to={'role': 'academic_supervisor'}

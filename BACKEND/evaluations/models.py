@@ -6,6 +6,7 @@ class EvaluationCriteria(models.Model):
     name = models.CharField(max_length=200, unique= True)
     description = models.TextField()
     weight = models.DecimalField(max_digits=5, decimal_places=2)
+    is_active = models.BooleanField(default= True)
 
     def __str__(self):
         return f"{self.name} ({self.weight}%)"
