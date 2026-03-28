@@ -100,7 +100,9 @@ class WeeklyLog(models.Model):
 # Supervisor Review
 # ---------------------
 class SupervisorReview(models.Model):
-    log = models.OneToOneField(WeeklyLog, on_delete=models.CASCADE)
+    log = models.OneToOneField(WeeklyLog, 
+                               on_delete=models.CASCADE,
+                               related_name= 'review')
     supervisor = models.ForeignKey(
         CustomUser,
         on_delete=models.SET_NULL,

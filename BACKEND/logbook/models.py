@@ -40,3 +40,19 @@ class WeeklyLog(models.Model):
 
     def __str__(self):
         return f"{self.student.username} - Week {self.week_number}"
+
+class SupervisorReview(models.Model):
+    log = models.OneToOneField(WeeklyLog, 
+                               on_delete=models.CASCADE,
+                               related_name= 'review')
+    supervisor = models.ForeignKey(
+        CustomUser,
+        on_delete=models.SET_NULL,
+        null=True,
+        limit_choices_to={'role__in': ['workplace_supervisor', 'academic_supervisor']}
+    )
+    comments = models.TextField()
+    approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Review for {self.log}"
