@@ -9,9 +9,9 @@ class WeeklyLogSerializer(serializers.ModelSerializer):
                  'challenges', 'submitted_at']
         read_only_fields=['submitted_at']
 
-class SupervisorRviewSerializer(serializers.ModerSerializer):
+class SupervisorReviewSerializer(serializers.ModerSerializer):
     supervisor_name =serializers.CharField(source='supervisor.username', read_only= True)
     class Meta:
-        model = SupervisorReviewfields = ['id', 'log', 'supervisor', 
-                                          'supervisor_name', 'comments',
-                                          'approved']
+        model = SupervisorReview
+        fields = ['id', 'log', 'supervisor',
+                    'supervisor_name', 'comments','approved']
