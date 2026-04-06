@@ -1,3 +1,4 @@
+from datetime import timedelta
 """
 Django settings for iles_project project.
 
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-&ctzqsq7$tj@7@i&t6o8%)1sq7m_#jw8bs=5%ogr&wms!xn0+o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
 
 
 # Application definition
@@ -44,6 +45,9 @@ INSTALLED_APPS = [
     'placements',
     'logbook',
     'evaluations',
+
+    #JSON web token
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +130,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 AUTH_USER_MODEL = 'users.CustomUser'
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':
+    ('rest_framework_simplejwt.authentication.JWTAuthentication',),}
+
+SIMPLE_JWT = {
+    'ACCES_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+}
