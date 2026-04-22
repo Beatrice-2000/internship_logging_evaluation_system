@@ -48,6 +48,9 @@ INSTALLED_APPS = [
 
     #JSON web token
     'rest_framework_simplejwt',
+
+    #CORS HEADERS
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
