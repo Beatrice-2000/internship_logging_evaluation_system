@@ -80,3 +80,15 @@ class SupervisorReviewView(generics.CreateAPIView):
         serializer.save(supervisor=self.request.user, log=log)
         log.status = 'reviewed'
         log.save()
+
+class StudentLogbookView(generics.ListCreateAPIView):
+    serializer_class = WeeklyLogSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        if self.request.user.role=='student':
+            return WeeklyLog.objects/filter(students= self.request.user)
+        return WeeklyLog.objects.none()
+    
+    def perform_create(self, serializer):
+        serializer.save(student= self.request.user)
