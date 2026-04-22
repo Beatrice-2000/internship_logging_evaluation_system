@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from users.views import RegisterView, LoginView, LogoutView, AdminUserListView
+from evaluations.views import AdminReportView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +31,7 @@ urlpatterns = [
     path('api/auth/register/', RegisterView.as_view(), name= 'auth-register'),
     path('api/auth/logout/', LogoutView.as_view(), name='auth-logout'),
     
-    path('api/admin/users/', AdminUserListView.as_view(), name='admin-users'),
-    
+    #Admin endpoints
+    path('api/admin/users/', AdminUserListView.as_view(), name='admin-users'),#users
+    path('api/admin/reports/', adminReportView.as_view(), name= 'admin-reports')
 ]

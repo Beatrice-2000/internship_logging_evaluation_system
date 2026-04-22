@@ -1,6 +1,11 @@
 from rest_framework import generics, permissions
 from .models import Evaluation, EvaluationCriteria
 from .serializers import EvaluationSerializer, EvaluationCriteriaSerializer
+from users.models import CustomUser
+from placements.models import InternshipPlacement
+from logbook.models import WeeklyLog
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 class IsSupervisorOrAdmin(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -32,3 +37,26 @@ class EvaluationCriteriaListView(generics.ListCreateAPIView):
     serializer_class = EvaluationCriteriaSerializer
     permission_classes = [permissions.IsAuthenticated, IsSupervisorOrAdmin]
     queryset = EvaluationCriteria.objects.filter(is_active=True)
+
+class AdminReportView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        if request.user.role != 'admin':
+            return Response({'error': 'Forbidden'}, status= 403)
+        
+        #Statistics calculations displayed to admin only
+        total_students = CustomUser.objects.filter(role= 'student').count()
+        total_placements = InternshipPlacement.objects.count()
+        total_logs = WeeklyLog.objects.counts()
+        active_placements = InternshipPlacement.objects.filter(status ='active').count()
+        pending_reviews = InternshipPlacement.objects.filter(status='pending').count()
+
+        data= {
+            'total_students': total_students,
+            'total_placements': total_placements,
+            'total_logs': total_logs,
+            'active_placements': active_placements,
+            'pending_reviews': pending_reviews,
+        }
+        return Response(data)
