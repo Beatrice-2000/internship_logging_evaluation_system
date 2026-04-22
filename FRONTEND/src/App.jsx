@@ -2,13 +2,10 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute   from './Components/auth/ProtectedRoute';
 import MainLayout       from './Components/layout/MainLayout';
-import RegisterPage from './pages/Registerpage';
-
-// Inside your routes, alongside the login route:
-<Route path="/register" element={<RegisterPage />} />
 
 // Public
 import LoginPage        from './pages/LoginPage';
+import RegisterPage     from './pages/Registerpage';
 import UnauthorizedPage from './pages/UnauthorizedPage';
 
 // Student
@@ -38,6 +35,7 @@ export default function App() {
           {/* ── Public ── */}
           <Route path="/"             element={<Navigate to="/login" replace />} />
           <Route path="/login"        element={<LoginPage />} />
+          <Route path="/register"     element={<RegisterPage />} />
           <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
           {/* ── Student ── */}
@@ -75,9 +73,9 @@ export default function App() {
           }>
             <Route index             element={<Navigate to="dashboard" replace />} />
             <Route path="dashboard"  element={<AdminDashboard />} />
-            <Route path="users"      element={<div style={{padding:28}}><h1 className="page-title">User Management — Week 4</h1></div>} />
-            <Route path="placements" element={<div style={{padding:28}}><h1 className="page-title">Placements — Week 5</h1></div>} />
-            <Route path="reports"    element={<div style={{padding:28}}><h1 className="page-title">Reports — Week 10</h1></div>} />
+            <Route path="users"      element={<div style={{padding:28}}><h1 className="page-title">User Management</h1></div>} />
+            <Route path="placements" element={<div style={{padding:28}}><h1 className="page-title">Placements</h1></div>} />
+            <Route path="reports"    element={<div style={{padding:28}}><h1 className="page-title">Reports</h1></div>} />
           </Route>
 
           {/* Catch-all */}
@@ -88,4 +86,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-
