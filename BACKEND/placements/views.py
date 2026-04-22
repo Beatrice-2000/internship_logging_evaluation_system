@@ -90,3 +90,12 @@ class PlacementStatusUpdateView(APIView):
             {'message': f'Placement status updated to {new_status}!'},
             status=status.HTTP_200_OK
         )
+    
+class AdminPlacementListView(generics.ListAPIView):
+    serializer_class = InternshipPlacementSerializer
+    permission_classes= [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        if self.request.user.role=='admin':
+            return InternshipPlacement.objects.all()
+        return InternshipPlacement.objects.none()
