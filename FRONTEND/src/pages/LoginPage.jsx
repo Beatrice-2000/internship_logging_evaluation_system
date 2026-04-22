@@ -82,9 +82,16 @@ export default function LoginPage() {
             style={{ width: '100%', justifyContent: 'center', padding: '12px' }}
             disabled={loading}
           >
+
             {loading ? 'Signing in…' : 'Sign In'}
-          </button>
-        </form>
+    </button>
+    <p style={{ textAlign: 'center', marginTop: 16, fontSize: 14, color: '#64748b' }}>
+      Don't have an account?{' '}
+      <Link to="/register" style={{ color: '#1a56db', fontWeight: 600, textDecoration: 'none' }}>
+        Create one
+      </Link>
+    </p>
+  </form>
       </div>
     </div>
   );
@@ -127,10 +134,3 @@ const styles = {
 };
 
 
-// Below the Sign In button:
-<p style={{ textAlign: 'center', marginTop: 16, fontSize: 14, color: '#64748b' }}>
-  Don't have an account?{' '}
-  <Link to="/register" style={{ color: '#1a56db', fontWeight: 600, textDecoration: 'none' }}>
-    Create one
-  </Link>
-</p>
