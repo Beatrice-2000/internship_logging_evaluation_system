@@ -1,15 +1,7 @@
 import { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { Outlet } from 'react-router-dom';
 
-const MainLayout = () => {
-  return (
-    <div>
-      <Outlet />
-    </div>
-  );
-};
 /* ── Nav items per role ── */
 const NAV = {
   student: [
