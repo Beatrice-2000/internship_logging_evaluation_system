@@ -2,6 +2,10 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute   from './Components/auth/ProtectedRoute';
 import MainLayout       from './Components/layout/MainLayout';
+import RegisterPage from './pages/Registerpage';
+
+// Inside your routes, alongside the login route:
+<Route path="/register" element={<RegisterPage />} />
 
 // Public
 import LoginPage        from './pages/LoginPage';

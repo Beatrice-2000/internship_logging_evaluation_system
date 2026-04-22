@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
+import { Link } from 'react-router-dom';
 
 const ROLE_REDIRECTS = {
   student:             '/student/dashboard',
@@ -124,3 +125,12 @@ const styles = {
   title: { fontSize: 20, fontWeight: 700, marginBottom: 6 },
   subtitle: { color: '#64748b', fontSize: 14 },
 };
+
+
+// Below the Sign In button:
+<p style={{ textAlign: 'center', marginTop: 16, fontSize: 14, color: '#64748b' }}>
+  Don't have an account?{' '}
+  <Link to="/register" style={{ color: '#1a56db', fontWeight: 600, textDecoration: 'none' }}>
+    Create one
+  </Link>
+</p>
