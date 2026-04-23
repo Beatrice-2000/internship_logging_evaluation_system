@@ -6,7 +6,7 @@ from evaluations.views import AdminReportView, StudentEvaluationView
 from logbook.views import StudentLogbookView
 from placements.views import StudentPlacementView
 from logbook.views import SupervisorReviewListView
-
+from evaluations.views import AcademicEvaluationListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -45,7 +45,15 @@ urlpatterns = [
     path('api/student/placement/', StudentPlacementView.as_view(), name='student-placement'),
 
     #Student evaluation endpoint
-    path('api/student/evaluation/', StudentEvaluationView.as_view(), name= 'student-evaluation')
+    path('api/student/evaluation/', StudentEvaluationView.as_view(), name= 'student-evaluation'),
 
     #Supervisor review endpoint
-    path('api/supervisor/reviews/', SupervisorReviewListView.as_view(), name= 'supervisor-reviews')]
+    path('api/supervisor/reviews/', SupervisorReviewListView.as_view(), name= 'supervisor-reviews')
+    
+    #Academic evaluation endpoint
+    path('api/academic/evaluations/', AcademicEvaluationListView.as_view(), name='academic-evaluations')
+
+    #
+
+
+    ]
