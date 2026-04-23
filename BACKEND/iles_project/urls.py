@@ -4,6 +4,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from users.views import RegisterView, LoginView, LogoutView, AdminUserListView
 from evaluations.views import AdminReportView
 from logbook.views import StudentLogbookView
+from placements.views import StudentPlacementView
 
 
 urlpatterns = [
@@ -38,6 +39,9 @@ urlpatterns = [
 
     #Student logbook endpoints
     path('api/student/logbook/', StudentLogbookView.as_view(), name='student-logbook'),
+
+    #Student placement endpoint
+    path('api/student/placement/', StudentPlacementView.as_view(), name='student-placement'),
 
 
 

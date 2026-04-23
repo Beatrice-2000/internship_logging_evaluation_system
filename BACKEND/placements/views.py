@@ -99,3 +99,7 @@ class AdminPlacementListView(generics.ListAPIView):
         if self.request.user.role=='admin':
             return InternshipPlacement.objects.all()
         return InternshipPlacement.objects.none()
+    
+class StudentPlacementView(generics.ListAPIView):
+    serializer_class = InternshipPlacementSerializer
+    permission_classes = [permissions.IsAuthenticated]
