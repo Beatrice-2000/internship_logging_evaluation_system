@@ -53,7 +53,7 @@ urlpatterns = [
     #Academic evaluation endpoint
     path('api/academic/evaluations/', AcademicEvaluationListView.as_view(), name='academic-evaluations')
 
-    #
+    ##
 
 
     ]
