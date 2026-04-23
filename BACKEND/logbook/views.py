@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from django.utils import timezone
 from .models import WeeklyLog, SupervisorReview
 from .serializers import WeeklyLogSerializer, SupervisorReviewSerializer
+from placements.models import InternshipPlacement
 
 class IsOwnerOrSupervisor(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
@@ -92,3 +93,21 @@ class StudentLogbookView(generics.ListCreateAPIView):
     
     def perform_create(self, serializer):
         serializer.save(student= self.request.user)
+
+class SupervisorReviewListView(generics.ListAPIView):
+    serializer_class = WeeklyLogSerializer
+    permission_classes =[permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.role not in ['workplace_supervisor', 'academic_supervisor']:
+            return WeeklyLog.objects.all()
+        
+        if user.role=='workplace_supervisor':
+            placements = InternshipPlacement.objects.filter(workplace_supervisor=user)
+        else:
+            placements = InternshipPlacement.objects.filter(academic_supervisor= user)
+        return WeeklyLog.objects.filter(
+            placement_in= placements, 
+            status='submitted'
+        )

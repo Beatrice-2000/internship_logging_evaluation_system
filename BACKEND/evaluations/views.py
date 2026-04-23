@@ -1,11 +1,12 @@
 from rest_framework import generics, permissions
 from .models import Evaluation, EvaluationCriteria
 from .serializers import EvaluationSerializer, EvaluationCriteriaSerializer
-from users.models import CustomUser
 from placements.models import InternshipPlacement
 from logbook.models import WeeklyLog
+from logbook.serializers import WeeklyLogSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from users.models import CustomUser
 
 class IsSupervisorOrAdmin(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -60,3 +61,13 @@ class AdminReportView(APIView):
             'pending_reviews': pending_reviews,
         }
         return Response(data)
+    
+class StudentEvaluationView(generics.ListAPIView):
+    serializer_class = EvaluationSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        if self.request.user.role =='student':
+            return Evaluation.objects.filter(student= self.request.user)
+        return Evaluation.objects.none()
+    

@@ -3,7 +3,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import InternshipPlacement
-from .serializers import InternshipPlacementSerializer
+from .serializers import InternshipPlacementSerializer 
 
 class IsAdminOnly(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -103,3 +103,8 @@ class AdminPlacementListView(generics.ListAPIView):
 class StudentPlacementView(generics.ListAPIView):
     serializer_class = InternshipPlacementSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        if self.request.user.role =='student':
+            return InternshipPlacement.objects.filter(student= self.request.user)
+        return InternshipPlacement.objects.none()

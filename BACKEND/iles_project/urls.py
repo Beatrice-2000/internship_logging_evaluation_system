@@ -2,9 +2,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from users.views import RegisterView, LoginView, LogoutView, AdminUserListView
-from evaluations.views import AdminReportView
+from evaluations.views import AdminReportView, StudentEvaluationView
 from logbook.views import StudentLogbookView
 from placements.views import StudentPlacementView
+from logbook.views import SupervisorReviewListView
 
 
 urlpatterns = [
@@ -43,6 +44,8 @@ urlpatterns = [
     #Student placement endpoint
     path('api/student/placement/', StudentPlacementView.as_view(), name='student-placement'),
 
+    #Student evaluation endpoint
+    path('api/student/evaluation/', StudentEvaluationView.as_view(), name= 'student-evaluation')
 
-
-]
+    #Supervisor review endpoint
+    path('api/supervisor/reviews/', SupervisorReviewListView.as_view(), name= 'supervisor-reviews')]
