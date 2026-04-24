@@ -132,3 +132,13 @@ class SupervisorReviewListView(generics.ListAPIView):
             placement_in= placements, 
             status='submitted'
         )
+    
+class ApproveLogView(APIView):
+    permission_classes = [permissions.IsAuthenticated, IsSupervisorOrAdmin]
+
+    def post(self, request, log_id):
+       try:
+           log = WeeklyLog.objects.get(pk= log_id)
+        except WeeklyLog.DoesNotExist:
+           return Response({'error': 'Log not found.'}, status =404)
+       
