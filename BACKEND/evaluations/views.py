@@ -83,3 +83,34 @@ class AcademicEvaluationListView(generics.ListAPIView):
         elif user.role=='admin':
             return AcademicEvaluation.objects.all()
         return AcademicEvaluation.objects.none()
+    
+class  AcademicEvaluationListCreateView(generics.ListCreateAPIView):
+    serializer_class =AcademicEvaluationSerializer
+    permission_classes =[permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user= self.request.user
+        if user.role =='admin':
+            return AcademicEvaluation.objects.all()
+        elif user.role =='academic_supervisor':
+            return AcademicEvaluation.objects.filter(academic_supervisor= user)
+        return AcademicEvaluation.objects.none()
+    
+    def perform_create(self, serializer):
+        if self.request.user.role != 'academic_supervisor':
+            from rest_framework.exceptions import PermissionDenied
+            raise PermissionDenied("Only academic supervisors can create evaluations")
+        
+        placement_id = self.request.data.get('placement')
+        try:
+            placement = InternshipPlacement.objects.get(pk= placement_id)
+        except InternshipPlacement.DoesNotExist:
+            from rest_framework.exceptions import NotFound
+            raise NotFound('Placement not found')
+        
+        if placement.academic_supervisor!= self.request.user:
+            raise PermissionDenied("You are not the academic supervisor for this placement.")
+        
+        serializer.save(academic_supervisor= self.request.user)
+
+
