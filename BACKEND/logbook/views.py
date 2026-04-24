@@ -6,6 +6,7 @@ from django.utils import timezone
 from .models import WeeklyLog, SupervisorReview
 from .serializers import WeeklyLogSerializer, SupervisorReviewSerializer
 from placements.models import InternshipPlacement
+from rest_framework.exceptions import NotFound, ValidationError, PermissionDenied
 
 class IsOwnerOrSupervisor(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
@@ -70,6 +71,12 @@ class SubmitLogView(APIView):
             {'message': 'Log submitted successfully!'},
             status=status.HTTP_200_OK
         )
+def is_supervisor_for_placement(user, placement):
+        if user.role =='workplace_supervisor':
+            return placement.workplace_supervisor ==user
+        elif user.role =='academic_supervisor':
+            return placement.academic_supervisor ==user
+        return False
 
 class SupervisorReviewView(generics.CreateAPIView):
     serializer_class = SupervisorReviewSerializer
@@ -77,9 +84,23 @@ class SupervisorReviewView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         log_id = self.kwargs.get('log_id')
-        log = WeeklyLog.objects.get(pk=log_id)
-        serializer.save(supervisor=self.request.user, log=log)
-        log.status = 'reviewed'
+
+       #Searches for the log, if not found returns 404
+        try:
+            log =WeeklyLog.objects.get(pk=log_id)
+        except WeeklyLog.DoesNotExist:
+            raise NotFound("Log not Found.")
+        
+        #Checks status of the log
+        if log.status !='submited':
+            raise ValidationError("Only logs with status 'submitted' can be reviewed")
+        
+        #Checks supervisor assignment
+        if not is_supervisor_for_placement(self.request.user, log.placement):
+            raise PermissionDenied("You are not assigned as supervisor for this placement.")
+        
+        serializer.save(supervisor= self.rrequest.user, log =log)
+        log.status= 'reviewed'
         log.save()
 
 class StudentLogbookView(generics.ListCreateAPIView):

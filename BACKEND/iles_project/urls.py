@@ -35,7 +35,7 @@ urlpatterns = [
     path('api/auth/logout/', LogoutView.as_view(), name='auth-logout'),
     
     #Admin endpoints
-    path('api/admin/users/', AdminUserListView.as_view(), name='admin-users'),#users
+    path('api/admin/users/', AdminUserListView.as_view(), name='admin-users'),
     path('api/admin/reports/', AdminReportView.as_view(), name= 'admin-reports'),
 
     #Student logbook endpoints
@@ -48,12 +48,8 @@ urlpatterns = [
     path('api/student/evaluation/', StudentEvaluationView.as_view(), name= 'student-evaluation'),
 
     #Supervisor review endpoint
-    path('api/supervisor/reviews/', SupervisorReviewListView.as_view(), name= 'supervisor-reviews')
+    path('api/supervisor/reviews/', SupervisorReviewListView.as_view(), name= 'supervisor-reviews'),
     
     #Academic evaluation endpoint
-    path('api/academic/evaluations/', AcademicEvaluationListView.as_view(), name='academic-evaluations')
-
-    ##
-
-
+    path('api/academic/evaluations/', AcademicEvaluationListView.as_view(), name='academic-evaluations'),
     ]
