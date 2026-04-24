@@ -113,4 +113,57 @@ class  AcademicEvaluationListCreateView(generics.ListCreateAPIView):
         
         serializer.save(academic_supervisor= self.request.user)
 
+class StudentScoreView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+#Check permission so only admin, academic supervisor or student can check student score
+    def get(self, request, student_id):
+        from users.models import CustomUser
+        from .models import Evaluation, AcademicEvaluation
 
+        user = request.user
+        if user.role not in ['admin','academic_supervisor'] and user.id != student_id:
+            return Response({"error":"You do not have permission to view this score!"}, status = 403)
+        
+        try:
+            student = CustomUser.objects.get(pk= student_id, role = 'student')
+        except CustomUser.DoesNotExist:
+            return Response({'error':'Student Not Found'}, status= 404)
+        
+        evaluations = Evaluation.objects.filter(student=student)
+        if not evaluations.exists():
+            return Response({'total score': 0, 'grade' :'N/A', 'message':'No evaluations yet'})
+        
+        weighted_sum = 0
+        for eval in evaluations:
+            weighted_sum += float(eval.criteria weight)* float(eval.score)
+
+        try:
+            academic= AcademicEvaluation.objects.get(placement_student= student)
+            academic_score = float(academic.score)
+        except AcademicEvaluation.DoesNotExist:
+            academic_score = 0
+
+#Applying weights i.e 70% for criteria sum, 30% for academic
+
+        total_score= (weighted_sum *0.7) + (academic_score *0.3)
+        total_score = round(total_score, 2)
+
+        if total_score >=80 :
+            grade = 'A'
+        elif total_score >= 70:
+            grade ='B'
+        elif total_score >= 60:
+            grade = 'C'
+        elif total_score >= 50:
+            grade = 'D'
+        else:
+            grade = 'F'
+
+        return Response({
+            'student_id': student.id,
+            'student_name': student.username,
+            'weighted_criteria_sum': round(weighted_sum, 2),
+            'academic_evaluation_score': academic_score,
+            'total_score': total_score,
+            'grade': grade
+        })
