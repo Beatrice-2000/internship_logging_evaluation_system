@@ -6,4 +6,7 @@ urlpatterns = [
     path('<int:pk>/', views.WeeklyLogDetailView.as_view(), name='log-detail'),
     path('<int:pk>/submit/', views.SubmitLogView.as_view(), name='log-submit'),
     path('<int:log_id>/review/', views.SupervisorReviewView.as_view(), name='log-review'),
+    path('<int:log_id>/approve/', views.ApproveLogView.as_view(), name='log-approve'),
+    
+
 ]
