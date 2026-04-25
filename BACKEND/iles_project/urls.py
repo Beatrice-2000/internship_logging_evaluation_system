@@ -1,12 +1,23 @@
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from users.views import RegisterView, LoginView, LogoutView, AdminUserListView
-from evaluations.views import AdminReportView, StudentEvaluationView
-from logbook.views import StudentLogbookView
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView
+)
+from users.views import (
+    RegisterView,
+    LoginView,
+    ProfileView,
+    LogoutView,
+    AdminUserListView
+)
+from evaluations.views import (
+    AdminReportView,
+    StudentEvaluationView,
+    AcademicEvaluationListCreateView
+)
+from logbook.views import StudentLogbookView, SupervisorReviewListView
 from placements.views import StudentPlacementView
-from logbook.views import SupervisorReviewListView
-from evaluations.views import AcademicEvaluationListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -20,6 +31,12 @@ urlpatterns = [
     path('api/login/', LoginView.as_view(), name='login'),
     path('api/users/', include('users.urls')),
 
+    # Frontend auth endpoints
+    path('api/auth/login/', LoginView.as_view(), name='auth-login'),
+    path('api/auth/register/', RegisterView.as_view(), name='auth-register'),
+    path('api/auth/profile/', ProfileView.as_view(), name='auth-profile'),
+    path('api/auth/logout/', LogoutView.as_view(), name='auth-logout'),
+
     # Placements
     path('api/placements/', include('placements.urls')),
 
@@ -29,27 +46,18 @@ urlpatterns = [
     # Evaluations
     path('api/evaluations/', include('evaluations.urls')),
 
-    #Frontend auth endpoints
-    path('api/auth/login/', LoginView.as_view(), name='auth-login'),
-    path('api/auth/register/', RegisterView.as_view(), name= 'auth-register'),
-    path('api/auth/logout/', LogoutView.as_view(), name='auth-logout'),
-    
-    #Admin endpoints
+    # Admin endpoints
     path('api/admin/users/', AdminUserListView.as_view(), name='admin-users'),
-    path('api/admin/reports/', AdminReportView.as_view(), name= 'admin-reports'),
+    path('api/admin/reports/', AdminReportView.as_view(), name='admin-reports'),
 
-    #Student logbook endpoints
+    # Student endpoints
     path('api/student/logbook/', StudentLogbookView.as_view(), name='student-logbook'),
-
-    #Student placement endpoint
     path('api/student/placement/', StudentPlacementView.as_view(), name='student-placement'),
+    path('api/student/evaluation/', StudentEvaluationView.as_view(), name='student-evaluation'),
 
-    #Student evaluation endpoint
-    path('api/student/evaluation/', StudentEvaluationView.as_view(), name= 'student-evaluation'),
+    # Supervisor endpoints
+    path('api/supervisor/reviews/', SupervisorReviewListView.as_view(), name='supervisor-reviews'),
 
-    #Supervisor review endpoint
-    path('api/supervisor/reviews/', SupervisorReviewListView.as_view(), name= 'supervisor-reviews'),
-    
-    #Academic evaluation endpoint
-    path('api/academic/evaluations/', AcademicEvaluationListView.as_view(), name='academic-evaluations'),
-    ]
+    # Academic evaluation endpoint
+    path('api/academic/evaluations/', AcademicEvaluationListCreateView.as_view(), name='academic-evaluations'),
+]
