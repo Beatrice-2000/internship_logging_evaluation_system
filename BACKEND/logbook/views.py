@@ -205,6 +205,12 @@ class SubmitLogView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+        if log.placement.end_date < timezone.now().date():
+            return Response(
+                {'error': f"Cannot submit log. Internship ended on {log.placement.end_date}."},
+                status = status.HTTP_400_BAD_REQUEST
+            )
+
         if not log.activities or not log.activities.strip():
             return Response(
                 {'error': 'Please fill in your activities before submitting.'},

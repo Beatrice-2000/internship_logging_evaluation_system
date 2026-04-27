@@ -54,13 +54,32 @@ class AdminReportView(APIView):
         active_placements = InternshipPlacement.objects.filter(status ='active').count()
         pending_reviews = WeeklyLog.objects.filter(status='submitted').count()
 
+        total_scores =[]
+        students = CustomUser.objects.filter(role= 'student')
+
+        for student in students:
+            evaluations = Evaluation.objects.filter(student= student)
+            if evaluations.exists():
+                weighted_sum = 0
+                for eval in evaluations:
+                    weighted_sum += float(eval.criteria.weight) * float(eval.score)
+                try:
+                    academic = AcademicEvaluation.objects.get(placement__student= student)
+                    academic_score = float(academic.score)
+                except AcademicEvaluation.DoesNotExist:
+                    academic_score = 0
+                total_score = (weighted_sum *0.7) + (academic_score *0.3)
+                total_scores.append(total_score)
+        avg_score = round(sum(total_scores)/ len(total_scores), 2) if total_scores else 0
+        
         data= {
             'total_students': total_students,
             'total_placements': total_placements,
             'total_logs': total_logs,
             'active_placements': active_placements,
             'pending_reviews': pending_reviews,
-        }
+            'average_score' : avg_score,
+        }  
         return Response(data)
     
 class StudentEvaluationView(generics.ListAPIView):
