@@ -50,9 +50,9 @@ class AdminReportView(APIView):
         #Statistics calculations displayed to admin only
         total_students = CustomUser.objects.filter(role= 'student').count()
         total_placements = InternshipPlacement.objects.count()
-        total_logs = WeeklyLog.objects.counts()
+        total_logs = WeeklyLog.objects.count()
         active_placements = InternshipPlacement.objects.filter(status ='active').count()
-        pending_reviews = InternshipPlacement.objects.filter(status='pending').count()
+        pending_reviews = WeeklyLog.objects.filter(status='submitted').count()
 
         data= {
             'total_students': total_students,
