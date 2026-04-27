@@ -52,7 +52,7 @@ class WeeklyLog(models.Model):
         if self.status =='reviewed' and self.reviewed_at is None:
             self.reviewed_at== timezone.now()
         if self.status=='approved' and self.approved_at is None:
-            self.approved_at = timezone.now()
+            self.approved_at == timezone.now()
 
         super().save(*args, **kwargs) #Saves the database
 

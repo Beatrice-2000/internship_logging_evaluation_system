@@ -8,10 +8,7 @@ from django.contrib.auth import authenticate
 from .userserializers import RegisterSerializer, UserSerializer
 from .models import CustomUser
 
-
-# ============================================================
 # CUSTOM PERMISSIONS
-# ============================================================
 
 class IsAdminOnly(permissions.BasePermission):
     """
@@ -26,10 +23,7 @@ class IsAdminOnly(permissions.BasePermission):
             request.user.role == 'admin'
         )
 
-
-# ============================================================
 # AUTHENTICATION VIEWS
-# ============================================================
 
 class RegisterView(generics.CreateAPIView):
     """
@@ -109,25 +103,11 @@ class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        try:
-            refresh_token = request.data.get('refresh')
-            if refresh_token:
-                token = RefreshToken(refresh_token)
-                token.blacklist()
-            return Response(
+       return Response(
                 {'message': 'Logged out successfully!'},
-                status=status.HTTP_200_OK
-            )
-        except Exception:
-            return Response(
-                {'message': 'Logged out successfully!'},
-                status=status.HTTP_200_OK
-            )
+                status=status.HTTP_200_OK)
 
-
-# ============================================================
 # PROFILE VIEWS
-# ============================================================
 
 class ProfileView(APIView):
     """
@@ -216,10 +196,7 @@ class ChangePasswordView(APIView):
             'access': str(refresh.access_token),
         }, status=status.HTTP_200_OK)
 
-
-# ============================================================
 # ADMIN USER MANAGEMENT VIEWS
-# ============================================================
 
 class AdminUserListView(generics.ListAPIView):
     """

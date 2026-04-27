@@ -138,7 +138,7 @@ class StudentScoreView(APIView):
             weighted_sum += float(eval.criteria.weight)* float(eval.score)
 
         try:
-            academic= AcademicEvaluation.objects.get(placement_student= student)
+            academic= AcademicEvaluation.objects.get(placement__student= student)
             academic_score = float(academic.score)
         except AcademicEvaluation.DoesNotExist:
             academic_score = 0
