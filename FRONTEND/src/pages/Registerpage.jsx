@@ -6,7 +6,7 @@ const ROLES = [
   { value: 'student', label: 'Student' },
   { value: 'academic_supervisor', label: 'Academic Supervisor' },
   { value: 'administrator', label: 'Administrator' },
-   { value: 'workplace_supervisor', label: 'Workplace Supervisor' },
+  { value: 'workplace_supervisor', label: 'Workplace Supervisor' },
 ];
 
 const RegisterPage = () => {
@@ -54,6 +54,7 @@ const RegisterPage = () => {
         last_name: formData.last_name,
         role: formData.role,
         password: formData.password,
+        password2: formData.confirmPassword,  // ← fixed
       });
       navigate('/login', { state: { registered: true } });
     } catch (err) {

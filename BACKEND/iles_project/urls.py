@@ -1,9 +1,12 @@
+from django.http import HttpResponse
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView
 )
+def home(request):
+    return HttpResponse("Welcome 🚀")
 from users.views import (
     RegisterView,
     LoginView,
@@ -20,6 +23,7 @@ from logbook.views import StudentLogbookView, SupervisorReviewListView
 from placements.views import StudentPlacementView
 
 urlpatterns = [
+     path('', home),   #  homepage
     path('admin/', admin.site.urls),
 
     # JWT Authentication
@@ -60,4 +64,5 @@ urlpatterns = [
 
     # Academic evaluation endpoint
     path('api/academic/evaluations/', AcademicEvaluationListCreateView.as_view(), name='academic-evaluations'),
+    
 ]

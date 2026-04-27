@@ -1,20 +1,14 @@
+from datetime import timedelta
 from pathlib import Path
 
-# ---------------------
-# Basic paths
-# ---------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# ---------------------
-# Security
-# ---------------------
-SECRET_KEY = 'django-insecure-tq_=z=os6r2(c)_l84do*cg%h9jl(_gjtxks#)36hvwzqo20k%'
-DEBUG = True
-ALLOWED_HOSTS = []
+SECRET_KEY = 'django-insecure-&ctzqsq7$tj@7@i&t6o8%)1sq7m_#jw8bs=5%ogr&wms!xn0+'
 
-# ---------------------
-# Installed apps
-# ---------------------
+DEBUG = True
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -23,15 +17,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'corsheaders',
-    'core',  # your app
+    'users',
+    'placements',
+    'logbook',
+    'evaluations',
 ]
 
-# ---------------------
-# Middleware
-# ---------------------
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # MUST be first
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -41,14 +36,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# ---------------------
-# URL config
-# ---------------------
 ROOT_URLCONF = 'iles_project.urls'
 
-# ---------------------
-# Templates
-# ---------------------
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -66,25 +55,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'iles_project.wsgi.application'
 
-# ---------------------
-# Database (PostgreSQL)
-# ---------------------
-AUTH_USER_MODEL = 'core.User'
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'iles_db',        # your DB name
-        'USER': 'postgres',       # your PostgreSQL username
-        'PASSWORD': 'yourpassword', # your PostgreSQL password
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
-# ---------------------
-# Password validation
-# ---------------------
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -92,30 +69,27 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# ---------------------
-# Internationalization
-# ---------------------
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# ---------------------
-# Static files
-# ---------------------
 STATIC_URL = 'static/'
 
-# ---------------------
-# CORS
-# ---------------------
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # React frontend
-]
+AUTH_USER_MODEL = 'users.CustomUser'
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
 }
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
