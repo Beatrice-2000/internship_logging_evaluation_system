@@ -1,46 +1,61 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import api from '../services/api';
+// src/Context/AuthContext.jsx
+import React, { createContext, useState, useEffect } from 'react';
 
-const AuthContext = createContext(null);
+// Create the context (named export)
+export const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
-  const [user, setUser]       = useState(null);
+// Create the provider component (named export)
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // On mount, restore user from localStorage
   useEffect(() => {
-    const stored = localStorage.getItem('iles_user');
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      setUser(parsed);
-      api.defaults.headers.common['Authorization'] = `Bearer ${parsed.access}`;
-    }
-    setLoading(false);
+    // Check if user is logged in
+    const checkAuth = () => {
+      try {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+          setUser(JSON.parse(storedUser));
+        }
+      } catch (error) {
+        console.error('Error loading user:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
   }, []);
 
-  const login = async (username, password) => {
-    const res = await api.post('/auth/login/', { username, password });
-    const { access, refresh, user: userData } = res.data;
-    const fullUser = { ...userData, access, refresh };
-    setUser(fullUser);
-    localStorage.setItem('iles_user', JSON.stringify(fullUser));
-    api.defaults.headers.common['Authorization'] = `Bearer ${access}`;
-    return fullUser;
+  const login = (userData) => {
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('iles_user');
-    delete api.defaults.headers.common['Authorization'];
+    localStorage.removeItem('user');
   };
 
-  const hasRole = (...roles) => roles.includes(user?.role);
+  const value = {
+    user,
+    loading,
+    login,
+    logout
+  };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, hasRole }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
-export const useAuth = () => useContext(AuthContext);
+// Also export a custom hook for convenience
+export const useAuth = () => {
+  const context = React.useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};
