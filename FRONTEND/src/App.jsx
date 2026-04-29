@@ -1,8 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useContext } from 'react';
+
+// ✅ Lowercase 'context' — matches your actual file: src/context/AuthContext.jsx
 import { AuthProvider, AuthContext } from './context/AuthContext';
-import ProtectedRoute   from './Components/auth/ProtectedRoute';
-import MainLayout       from './Components/layout/MainLayout';
+import ProtectedRoute from './Components/auth/ProtectedRoute';
+import MainLayout     from './Components/layout/MainLayout';
 
 // Public
 import LoginPage        from './pages/LoginPage';
@@ -34,13 +36,32 @@ import AdminStatisticsPage     from './pages/admin/AdminStatisticsPage';
 
 import './styles/index.css';
 
-/**
- * AppRoutes sits INSIDE <AuthProvider> so useContext(AuthContext) is safe here.
- */
+// ─────────────────────────────────────────────
+// AppRoutes lives INSIDE <AuthProvider> so
+// useContext(AuthContext) is always defined here
+// ─────────────────────────────────────────────
 function AppRoutes() {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
 
-  // Redirect to the correct dashboard after login based on role
+  // Wait for localStorage check to finish before rendering routes
+  // This prevents a flash-redirect to /login on hard refresh
+  if (loading) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        background: '#0a0a0f',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: 'sans-serif',
+        color: '#334155',
+        fontSize: 14,
+      }}>
+        Loading…
+      </div>
+    );
+  }
+
   const homePath = () => {
     if (!user) return '/login';
     const map = {
@@ -62,9 +83,10 @@ function AppRoutes() {
       <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
       {/* ── Student ── */}
-      <Route path="/student" element={
-        <ProtectedRoute roles={['student']}><MainLayout /></ProtectedRoute>
-      }>
+      <Route
+        path="/student"
+        element={<ProtectedRoute roles={['student']}><MainLayout /></ProtectedRoute>}
+      >
         <Route index             element={<Navigate to="dashboard" replace />} />
         <Route path="dashboard"  element={<StudentDashboard />} />
         <Route path="logbook"    element={<LogbookPage />} />
@@ -74,9 +96,10 @@ function AppRoutes() {
       </Route>
 
       {/* ── Workplace Supervisor ── */}
-      <Route path="/supervisor" element={
-        <ProtectedRoute roles={['workplace_supervisor']}><MainLayout /></ProtectedRoute>
-      }>
+      <Route
+        path="/supervisor"
+        element={<ProtectedRoute roles={['workplace_supervisor']}><MainLayout /></ProtectedRoute>}
+      >
         <Route index                 element={<Navigate to="dashboard" replace />} />
         <Route path="dashboard"      element={<SupervisorDashboard />} />
         <Route path="reviews"        element={<SupervisorReviews />} />
@@ -84,9 +107,10 @@ function AppRoutes() {
       </Route>
 
       {/* ── Academic Supervisor ── */}
-      <Route path="/academic" element={
-        <ProtectedRoute roles={['academic_supervisor']}><MainLayout /></ProtectedRoute>
-      }>
+      <Route
+        path="/academic"
+        element={<ProtectedRoute roles={['academic_supervisor']}><MainLayout /></ProtectedRoute>}
+      >
         <Route index              element={<Navigate to="dashboard" replace />} />
         <Route path="dashboard"   element={<AcademicDashboard />} />
         <Route path="evaluations" element={<AcademicEvaluationPage />} />
@@ -94,9 +118,10 @@ function AppRoutes() {
       </Route>
 
       {/* ── Administrator ── */}
-      <Route path="/admin" element={
-        <ProtectedRoute roles={['administrator']}><MainLayout /></ProtectedRoute>
-      }>
+      <Route
+        path="/admin"
+        element={<ProtectedRoute roles={['administrator']}><MainLayout /></ProtectedRoute>}
+      >
         <Route index             element={<Navigate to="dashboard" replace />} />
         <Route path="dashboard"  element={<AdminDashboard />} />
         <Route path="users"      element={<UserManagementPage />} />
@@ -104,16 +129,16 @@ function AppRoutes() {
         <Route path="reports"    element={<AdminStatisticsPage />} />
       </Route>
 
-      {/* Catch-all → 404 */}
+      {/* Catch-all */}
       <Route path="*" element={<NotFoundPage />} />
 
     </Routes>
   );
 }
 
-/**
- * App only sets up providers. No context is consumed here.
- */
+// ─────────────────────────────────────────────
+// App only sets up providers — never reads context
+// ─────────────────────────────────────────────
 export default function App() {
   return (
     <BrowserRouter>
