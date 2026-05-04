@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Api from "../Services/Api";
+import API from "../../Services/api";
 
 const PlacementManagementPage = () => {
   const [placements, setPlacements] = useState([]);
