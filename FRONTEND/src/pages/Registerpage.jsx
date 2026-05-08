@@ -5,7 +5,7 @@ import API from '../services/api';
 const ROLES = [
   { value: 'student', label: 'Student' },
   { value: 'academic_supervisor', label: 'Academic Supervisor' },
-  { value: 'administrator', label: 'Administrator' },
+  { value: 'admin', label: 'Administrator' },
   { value: 'workplace_supervisor', label: 'Workplace Supervisor' },
 ];
 
