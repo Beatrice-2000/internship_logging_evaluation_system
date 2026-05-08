@@ -102,20 +102,20 @@ class PlacementListCreateView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
+        queryset = InternshipPlacement.objects.select_related(
+            'student',
+            'academic_supervisor',
+            'workplace_supervisor'
+        )
+        
         if user.role == 'admin':
-            return InternshipPlacement.objects.all()
+            return queryset
         elif user.role == 'academic_supervisor':
-            return InternshipPlacement.objects.filter(
-                academic_supervisor=user
-            )
+            return queryset.filter(academic_supervisor=user)
         elif user.role == 'workplace_supervisor':
-            return InternshipPlacement.objects.filter(
-                workplace_supervisor=user
-            )
+            return queryset.filter(workplace_supervisor=user)
         elif user.role == 'student':
-            return InternshipPlacement.objects.filter(
-                student=user
-            )
+            return queryset.filter(student=user)
         return InternshipPlacement.objects.none()
 
     def get_permissions(self):
@@ -149,20 +149,20 @@ class PlacementDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         user = self.request.user
+        queryset = InternshipPlacement.objects.select_related(
+            'student',
+            'academic_supervisor',
+            'workplace_supervisor'
+        )
+        
         if user.role == 'admin':
-            return InternshipPlacement.objects.all()
+            return queryset
         elif user.role == 'academic_supervisor':
-            return InternshipPlacement.objects.filter(
-                academic_supervisor=user
-            )
+            return queryset.filter(academic_supervisor=user)
         elif user.role == 'workplace_supervisor':
-            return InternshipPlacement.objects.filter(
-                workplace_supervisor=user
-            )
+            return queryset.filter(workplace_supervisor=user)
         elif user.role == 'student':
-            return InternshipPlacement.objects.filter(
-                student=user
-            )
+            return queryset.filter(student=user)
         return InternshipPlacement.objects.none()
 
     def destroy(self, request, *args, **kwargs):

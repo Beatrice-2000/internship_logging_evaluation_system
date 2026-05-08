@@ -41,6 +41,11 @@ class WeeklyLog(models.Model):
 
     class Meta:
         unique_together = ['student', 'placement', 'week_number']
+        indexes = [
+            models.Index(fields=['student', 'placement', 'week_number']),
+            models.Index(fields=['status', 'submitted_at']),
+            models.Index(fields=['placement', 'status']),
+        ]
 
     def __str__(self):
         return f"{self.student.username} - Week {self.week_number}"
