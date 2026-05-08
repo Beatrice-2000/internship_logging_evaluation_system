@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import API from "../../Services/Api";
+import API from "../../services/Api";
 
 const ROLES = ["student", "supervisor", "academic", "admin"];
 

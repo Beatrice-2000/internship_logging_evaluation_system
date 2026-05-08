@@ -1,6 +1,6 @@
-// src/Context/AuthContext.jsx
+// src/context/AuthContext.jsx
 import React, { createContext, useState, useEffect } from 'react';
-import API from '../Services/Api';
+import API from '../services/Api';
 
 // Create the context (named export)
 export const AuthContext = createContext();

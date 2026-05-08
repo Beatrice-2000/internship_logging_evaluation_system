@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import API from '../../Services/Api';
+import API from '../../services/Api';
 
 export default function PlacementPage() {
   const [placement, setPlacement] = useState(null);
