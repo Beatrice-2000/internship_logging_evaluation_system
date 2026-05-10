@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics, permissions, status, filters
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.parsers import MultiPartParser, FormParser
 from django.utils import timezone
 from django.db.models import Count, Q
 from .models import InternshipPlacement
@@ -18,15 +19,14 @@ from .serializers import (
 
 class IsAdminOnly(permissions.BasePermission):
     """
-    Only allows access to users with the admin role.
-    Used for creating, updating and deleting placements.
+    Only allows access to users with the administrator role.
     """
     message = "Only administrators can perform this action."
 
     def has_permission(self, request, view):
         return (
             request.user.is_authenticated and
-            request.user.role == 'admin'
+            request.user.role in ['admin', 'administrator']  # accept both for safety
         )
 
 
@@ -42,7 +42,7 @@ class IsAdminOrReadOnly(permissions.BasePermission):
             return request.user.is_authenticated
         return (
             request.user.is_authenticated and
-            request.user.role == 'admin'
+            request.user.role in ['admin', 'administrator']
         )
 
 
@@ -56,7 +56,7 @@ class IsStudentOrAdmin(permissions.BasePermission):
     def has_permission(self, request, view):
         return (
             request.user.is_authenticated and
-            request.user.role in ['student', 'admin']
+            request.user.role in ['student', 'admin', 'administrator']
         )
 
 
@@ -73,7 +73,8 @@ class IsSupervisorOrAdmin(permissions.BasePermission):
             request.user.role in [
                 'workplace_supervisor',
                 'academic_supervisor',
-                'admin'
+                'admin',
+                'administrator',
             ]
         )
 
@@ -84,14 +85,14 @@ class IsSupervisorOrAdmin(permissions.BasePermission):
 
 class PlacementListCreateView(generics.ListCreateAPIView):
     """
-    GET: List all placements visible to the current user.
+    GET:  List all placements visible to the current user.
     POST: Create a new placement (admin only).
 
-    Role based filtering:
-    - Admin: sees all placements
-    - Academic Supervisor: sees placements they supervise academically
+    Role-based filtering:
+    - Admin/Administrator : sees all placements
+    - Academic Supervisor : sees placements they supervise academically
     - Workplace Supervisor: sees placements they supervise at work
-    - Student: sees only their own placements
+    - Student             : sees only their own placements
     """
     serializer_class = InternshipPlacementSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -119,30 +120,28 @@ class PlacementListCreateView(generics.ListCreateAPIView):
         return InternshipPlacement.objects.none()
 
     def get_permissions(self):
-        """Only admins can create placements."""
+        """Only admins can create placements via this endpoint."""
         if self.request.method == 'POST':
             return [permissions.IsAuthenticated(), IsAdminOnly()]
         return [permissions.IsAuthenticated()]
 
     def perform_create(self, serializer):
-        """Automatically set status to pending on creation."""
         serializer.save(status='pending')
 
     def list(self, request, *args, **kwargs):
-        """Override list to add summary statistics."""
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
         return Response({
             'count': queryset.count(),
-            'results': serializer.data
+            'results': serializer.data,
         })
 
 
 class PlacementDetailView(generics.RetrieveUpdateDestroyAPIView):
     """
-    GET: Retrieve a single placement.
-    PUT/PATCH: Update a placement (admin only).
-    DELETE: Delete a placement (admin only).
+    GET         : Retrieve a single placement.
+    PUT / PATCH : Update a placement (admin only).
+    DELETE      : Delete a placement (admin only).
     """
     serializer_class = InternshipPlacementSerializer
     permission_classes = [permissions.IsAuthenticated, IsAdminOrReadOnly]
@@ -166,12 +165,10 @@ class PlacementDetailView(generics.RetrieveUpdateDestroyAPIView):
         return InternshipPlacement.objects.none()
 
     def destroy(self, request, *args, **kwargs):
-        """Prevent deletion of active placements."""
         placement = self.get_object()
         if placement.status == 'active':
             return Response(
-                {'error': 'Cannot delete an active placement. '
-                          'Please cancel it first.'},
+                {'error': 'Cannot delete an active placement. Please cancel it first.'},
                 status=status.HTTP_400_BAD_REQUEST
             )
         return super().destroy(request, *args, **kwargs)
@@ -179,14 +176,21 @@ class PlacementDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 class PlacementStatusUpdateView(APIView):
     """
-    PATCH: Update placement status only.
-    Admin only endpoint.
+    PATCH: Update placement status only (admin only).
+
     Valid transitions:
-    pending → active → completed
-    pending → cancelled
-    active → cancelled
+      pending  → active | cancelled
+      active   → completed | cancelled
+      completed / cancelled → no further changes
     """
     permission_classes = [permissions.IsAuthenticated, IsAdminOnly]
+
+    VALID_TRANSITIONS = {
+        'pending':   ['active', 'cancelled'],
+        'active':    ['completed', 'cancelled'],
+        'completed': [],
+        'cancelled': [],
+    }
 
     def patch(self, request, pk):
         try:
@@ -198,19 +202,23 @@ class PlacementStatusUpdateView(APIView):
             )
 
         new_status = request.data.get('status')
-        valid_statuses = ['pending', 'active', 'completed', 'cancelled']
+        allowed = self.VALID_TRANSITIONS.get(placement.status, [])
 
-        if new_status not in valid_statuses:
+        if not new_status:
             return Response(
-                {'error': f'Invalid status. Choose from: '
-                          f'{", ".join(valid_statuses)}'},
+                {'error': 'status field is required.'},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        # Prevent invalid transitions
-        if placement.status == 'completed':
+        if new_status not in ['pending', 'active', 'completed', 'cancelled']:
             return Response(
-                {'error': 'Cannot change status of a completed placement.'},
+                {'error': 'Invalid status. Choose from: pending, active, completed, cancelled.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        if new_status not in allowed:
+            return Response(
+                {'error': f'Cannot transition from "{placement.status}" to "{new_status}".'},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
@@ -219,18 +227,15 @@ class PlacementStatusUpdateView(APIView):
         placement.save()
 
         return Response({
-            'message': f'Placement status updated from '
-                       f'{old_status} to {new_status}!',
+            'message': f'Placement status updated from {old_status} to {new_status}.',
             'placement_id': placement.id,
-            'new_status': new_status
+            'new_status': new_status,
         }, status=status.HTTP_200_OK)
 
 
 class AdminPlacementListView(generics.ListAPIView):
     """
-    GET: List all placements with full details.
-    Admin only endpoint.
-    Includes statistics per status.
+    GET: List all placements with full details + statistics (admin only).
     """
     serializer_class = InternshipPlacementSerializer
     permission_classes = [permissions.IsAuthenticated, IsAdminOnly]
@@ -241,43 +246,100 @@ class AdminPlacementListView(generics.ListAPIView):
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
-
-        # Add statistics
         stats = {
-            'total': queryset.count(),
-            'pending': queryset.filter(status='pending').count(),
-            'active': queryset.filter(status='active').count(),
+            'total':     queryset.count(),
+            'pending':   queryset.filter(status='pending').count(),
+            'active':    queryset.filter(status='active').count(),
             'completed': queryset.filter(status='completed').count(),
             'cancelled': queryset.filter(status='cancelled').count(),
         }
-
         return Response({
             'statistics': stats,
-            'results': serializer.data
+            'results': serializer.data,
         })
 
 
-class StudentPlacementView(generics.ListAPIView):
+class StudentPlacementView(generics.ListCreateAPIView):
     """
-    GET: List all placements for the currently logged in student.
-    Students can only see their own placements.
+    GET : Return the logged-in student's placements.
+    POST: Allow a student to submit a new placement request.
+
+    URL: /api/placements/my-placement/
     """
     serializer_class = InternshipPlacementSerializer
     permission_classes = [permissions.IsAuthenticated, IsStudentOrAdmin]
 
     def get_queryset(self):
-        if self.request.user.role == 'student':
+        user = self.request.user
+        if user.role == 'student':
             return InternshipPlacement.objects.filter(
-                student=self.request.user
+                student=user
             ).order_by('-start_date')
+        # Admins can see all via AdminPlacementListView; return none here
         return InternshipPlacement.objects.none()
+
+    def perform_create(self, serializer):
+        """Automatically assign the logged-in student and set status pending."""
+        serializer.save(student=self.request.user, status='pending')
+
+    def create(self, request, *args, **kwargs):
+        # Prevent a student from submitting duplicate active/pending requests
+        existing = InternshipPlacement.objects.filter(
+            student=request.user,
+            status__in=['pending', 'active']
+        ).first()
+        if existing:
+            return Response(
+                {'error': 'You already have a pending or active placement request.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        return super().create(request, *args, **kwargs)
+
+
+class PlacementLetterUploadView(APIView):
+    """
+    PATCH: Upload or replace the acceptance letter for a placement.
+
+    URL: /api/placements/<pk>/upload-letter/
+    Allowed roles: student (own placement only), admin
+    """
+    permission_classes = [permissions.IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def patch(self, request, pk):
+        try:
+            placement = InternshipPlacement.objects.get(pk=pk)
+        except InternshipPlacement.DoesNotExist:
+            return Response(
+                {'error': 'Placement not found.'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        # Students can only upload to their own placement
+        user = request.user
+        if user.role == 'student' and placement.student != user:
+            return Response(
+                {'error': 'You can only upload a letter for your own placement.'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        letter = request.FILES.get('acceptance_letter')
+        if not letter:
+            return Response(
+                {'error': 'No file provided. Use the key "acceptance_letter".'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        placement.acceptance_letter = letter
+        placement.save()
+
+        serializer = InternshipPlacementSerializer(placement, context={'request': request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class PlacementDashboardView(APIView):
     """
-    GET: Returns dashboard statistics for placements.
-    Shows different data based on the user role.
-    Used by the frontend dashboard components.
+    GET: Returns dashboard statistics tailored to the user's role.
     """
     permission_classes = [permissions.IsAuthenticated]
 
@@ -285,23 +347,14 @@ class PlacementDashboardView(APIView):
         user = request.user
         today = timezone.now().date()
 
-        if user.role == 'admin':
-            total = InternshipPlacement.objects.count()
-            active = InternshipPlacement.objects.filter(
-                status='active'
-            ).count()
-            pending = InternshipPlacement.objects.filter(
-                status='pending'
-            ).count()
-            completed = InternshipPlacement.objects.filter(
-                status='completed'
-            ).count()
+        if user.role in ['admin', 'administrator']:
+            qs = InternshipPlacement.objects.all()
             return Response({
-                'role': 'admin',
-                'total_placements': total,
-                'active_placements': active,
-                'pending_placements': pending,
-                'completed_placements': completed,
+                'role': 'administrator',
+                'total_placements':     qs.count(),
+                'active_placements':    qs.filter(status='active').count(),
+                'pending_placements':   qs.filter(status='pending').count(),
+                'completed_placements': qs.filter(status='completed').count(),
             })
 
         elif user.role == 'student':
@@ -311,25 +364,19 @@ class PlacementDashboardView(APIView):
                 'role': 'student',
                 'total_placements': placements.count(),
                 'current_placement': InternshipPlacementSerializer(
-                    active
+                    active, context={'request': request}
                 ).data if active else None,
             })
 
         elif user.role in ['workplace_supervisor', 'academic_supervisor']:
             if user.role == 'workplace_supervisor':
-                placements = InternshipPlacement.objects.filter(
-                    workplace_supervisor=user
-                )
+                placements = InternshipPlacement.objects.filter(workplace_supervisor=user)
             else:
-                placements = InternshipPlacement.objects.filter(
-                    academic_supervisor=user
-                )
+                placements = InternshipPlacement.objects.filter(academic_supervisor=user)
             return Response({
                 'role': user.role,
                 'total_students': placements.count(),
-                'active_students': placements.filter(
-                    status='active'
-                ).count(),
+                'active_students': placements.filter(status='active').count(),
             })
 
         return Response({'error': 'Unknown role'})

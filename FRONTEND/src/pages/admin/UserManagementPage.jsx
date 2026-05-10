@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import API from "../../services/Api";
+import API from '../../Services/Api';
 
-const ROLES = ["student", "supervisor", "academic", "admin"];
+const ROLES = ["student", "workplace_supervisor", "academic_supervisor", "admin"];
 
 const UserManagementPage = () => {
   const [users, setUsers] = useState([]);
@@ -20,7 +20,9 @@ const UserManagementPage = () => {
     setLoading(true);
     try {
       const res = await API.get("/users/");
-      setUsers(res.data);
+      // ✅ Handle both array and paginated Django response
+      const data = res.data;
+      setUsers(Array.isArray(data) ? data : data.results ?? data.users ?? []);
     } catch {
       setUsers([]);
     } finally {
@@ -89,9 +91,9 @@ const UserManagementPage = () => {
 
   const roleMeta = {
     student: { color: "#3b82f6", bg: "#1e3a5f22", label: "Student" },
-    supervisor: { color: "#f59e0b", bg: "#78350f22", label: "Supervisor" },
-    academic: { color: "#8b5cf6", bg: "#4c1d9522", label: "Academic" },
-    admin: { color: "#ef4444", bg: "#7f1d1d22", label: "Admin" },
+    workplace_supervisor: { color: "#f59e0b", bg: "#78350f22", label: "Workplace Supervisor" },
+    academic_supervisor: { color: "#8b5cf6", bg: "#4c1d9522", label: "Academic Supervisor" },
+    admin: { color: "#ef4444", bg: "#7f1d1d22", label: "Administrator" },
   };
 
   return (
