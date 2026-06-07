@@ -369,3 +369,30 @@ INFO 2026-06-07 21:02:03,462 autoreload 18496 3988 Watching for file changes wit
 INFO 2026-06-07 21:08:03,772 autoreload 18496 3988 C:\Users\kkena\internship_logging_evaluation_system\BACKEND\logbook\serializers.py changed, reloading.
 INFO 2026-06-07 21:08:04,832 autoreload 6716 5652 Watching for file changes with StatReloader
 INFO 2026-06-07 21:58:50,439 autoreload 3176 19348 Watching for file changes with StatReloader
+INFO 2026-06-07 22:58:43,096 autoreload 17420 11408 Watching for file changes with StatReloader
+INFO 2026-06-07 22:59:36,745 log 17420 18944 "OPTIONS /api/auth/login/ HTTP/1.1" 200 0
+INFO 2026-06-07 22:59:37,648 log 17420 18944 "POST /api/auth/login/ HTTP/1.1" 200 706
+INFO 2026-06-07 22:59:37,695 log 17420 18944 "OPTIONS /api/logs/dashboard/ HTTP/1.1" 200 0
+INFO 2026-06-07 22:59:37,696 log 17420 7452 "OPTIONS /api/logs/dashboard/ HTTP/1.1" 200 0
+ERROR 2026-06-07 22:59:37,713 log 17420 18944 Internal Server Error: /api/logs/dashboard/
+ERROR 2026-06-07 22:59:37,713 log 17420 18944 "GET /api/logs/dashboard/ HTTP/1.1" 500 72
+ERROR 2026-06-07 22:59:37,723 log 17420 7452 Internal Server Error: /api/logs/dashboard/
+ERROR 2026-06-07 22:59:37,724 log 17420 7452 "GET /api/logs/dashboard/ HTTP/1.1" 500 72
+INFO 2026-06-07 22:59:56,522 log 17420 7452 "POST /api/auth/login/ HTTP/1.1" 200 649
+INFO 2026-06-07 22:59:56,554 log 17420 18944 "OPTIONS /api/student/placement/ HTTP/1.1" 200 0
+INFO 2026-06-07 22:59:56,560 log 17420 18944 "OPTIONS /api/evaluations/score/5/ HTTP/1.1" 200 0
+INFO 2026-06-07 22:59:56,562 log 17420 18944 "OPTIONS /api/student/placement/ HTTP/1.1" 200 0
+INFO 2026-06-07 22:59:56,564 log 17420 7452 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+INFO 2026-06-07 22:59:56,564 log 17420 18944 "OPTIONS /api/evaluations/score/5/ HTTP/1.1" 200 0
+INFO 2026-06-07 22:59:56,573 log 17420 18944 "GET /api/student/placement/ HTTP/1.1" 200 52
+INFO 2026-06-07 22:59:56,574 log 17420 7452 "GET /api/evaluations/score/5/ HTTP/1.1" 200 121
+INFO 2026-06-07 22:59:56,584 log 17420 7452 "GET /api/student/placement/ HTTP/1.1" 200 52
+INFO 2026-06-07 22:59:56,586 log 17420 18944 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+INFO 2026-06-07 22:59:56,591 log 17420 7452 "GET /api/evaluations/score/5/ HTTP/1.1" 200 121
+INFO 2026-06-07 23:00:54,149 log 17420 7452 "POST /api/auth/login/ HTTP/1.1" 200 649
+INFO 2026-06-07 23:00:54,180 log 17420 18944 "GET /api/student/placement/ HTTP/1.1" 200 52
+INFO 2026-06-07 23:00:54,190 log 17420 18436 "GET /api/evaluations/score/5/ HTTP/1.1" 200 121
+INFO 2026-06-07 23:00:54,195 log 17420 18388 "GET /api/student/placement/ HTTP/1.1" 200 52
+INFO 2026-06-07 23:00:54,197 log 17420 7452 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+INFO 2026-06-07 23:00:54,203 log 17420 18944 "GET /api/evaluations/score/5/ HTTP/1.1" 200 121
+INFO 2026-06-07 23:00:54,208 log 17420 18388 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
