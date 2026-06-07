@@ -405,7 +405,7 @@ class StudentScoreView(generics.RetrieveAPIView):
     def get(self, request, *args, **kwargs):
         data = self.get_object()
         serializer = self.get_serializer(data)
-        serializer.is_valid(raise_exception=True)
+    
         return Response(serializer.data)
 
 
