@@ -3,34 +3,33 @@ import { useContext } from 'react';
 
 import { AuthProvider, AuthContext } from './context/AuthContext';
 import ProtectedRoute from './Components/auth/ProtectedRoute';
-import MainLayout     from './Components/layout/MainLayout';
+import MainLayout from './Components/layout/MainLayout';
 
 // Public
-import LoginPage        from './pages/LoginPage';
-import RegisterPage     from './pages/Registerpage';
-import LandingPage      from './pages/LandingPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/Registerpage';
 import UnauthorizedPage from './pages/UnauthorizedPage';
-import NotFoundPage     from './pages/NotFoundPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 // Student
 import StudentDashboard from './pages/student/StudentDashboard';
-import LogbookPage      from './pages/student/LogbookPage';
-import PlacementPage    from './pages/student/PlacementPage';
-import EvaluationPage   from './pages/student/EvaluationPage';
+import LogbookPage from './pages/student/LogbookPage';
+import PlacementPage from './pages/student/PlacementPage';
+import EvaluationPage from './pages/student/EvaluationPage';
 import ScoreResultsPage from './pages/student/ScoreResultsPage';
 
 // Supervisor
 import SupervisorDashboard from './pages/supervisor/SupervisorDashboard';
-import SupervisorReviews   from './pages/supervisor/SupervisorReviews';
-import LogbookDetailPage   from './pages/supervisor/LogbookDetailPage';
+import SupervisorReviews from './pages/supervisor/SupervisorReviews';
+import LogbookDetailPage from './pages/supervisor/LogbookDetailPage';
 
 // Academic
-import AcademicDashboard      from './pages/academic/AcademicDashboard';
+import AcademicDashboard from './pages/academic/AcademicDashboard';
 import AcademicEvaluationPage from './pages/academic/AcademicEvaluationPage';
 
 // Admin
-import AdminDashboard          from './pages/admin/AdminDashboard';
-import UserManagementPage      from './pages/admin/UserManagementPage';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import UserManagementPage from './pages/admin/UserManagementPage';
 import PlacementManagementPage from './pages/admin/PlacementManagementPage';
 
 import './styles/index.css';
@@ -69,8 +68,7 @@ function AppRoutes() {
   return (
     <Routes>
 
-      {/* ── Public ── */}
-      <Route path="/" element={user ? <Navigate to={homePath()} replace /> : <LandingPage />} />
+      <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/login"        element={<LoginPage />} />
       <Route path="/register"     element={<RegisterPage />} />
       <Route path="/unauthorized" element={<UnauthorizedPage />} />
