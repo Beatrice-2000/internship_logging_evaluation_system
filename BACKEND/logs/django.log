@@ -72,3 +72,22 @@ WARNING 2026-06-06 14:42:39,695 log 11236 14852 Not Found: /api/logbook/dashboar
 WARNING 2026-06-06 14:42:39,712 log 11236 14852 "GET /api/logbook/dashboard/ HTTP/1.1" 404 5430
 WARNING 2026-06-06 14:42:39,731 log 11236 12988 Not Found: /api/logbook/dashboard/
 WARNING 2026-06-06 14:42:39,738 log 11236 12988 "GET /api/logbook/dashboard/ HTTP/1.1" 404 5430
+INFO 2026-06-06 21:55:46,528 log 11236 12600 "OPTIONS /api/logbook/dashboard/ HTTP/1.1" 200 0
+INFO 2026-06-06 21:55:46,554 log 11236 19352 "OPTIONS /api/placements/dashboard/ HTTP/1.1" 200 0
+INFO 2026-06-06 21:55:46,563 log 11236 2616 "OPTIONS /api/placements/dashboard/ HTTP/1.1" 200 0
+INFO 2026-06-06 21:55:46,563 log 11236 8304 "OPTIONS /api/logbook/dashboard/ HTTP/1.1" 200 0
+WARNING 2026-06-06 21:55:47,283 log 11236 8304 Not Found: /api/logbook/dashboard/
+WARNING 2026-06-06 21:55:47,286 log 11236 8304 "GET /api/logbook/dashboard/ HTTP/1.1" 404 5430
+WARNING 2026-06-06 21:55:47,329 log 11236 2616 Not Found: /api/logbook/dashboard/
+WARNING 2026-06-06 21:55:47,332 log 11236 2616 "GET /api/logbook/dashboard/ HTTP/1.1" 404 5430
+WARNING 2026-06-06 21:55:48,006 log 11236 19352 Unauthorized: /api/placements/dashboard/
+WARNING 2026-06-06 21:55:48,007 log 11236 19352 "GET /api/placements/dashboard/ HTTP/1.1" 401 84
+WARNING 2026-06-06 21:55:48,022 log 11236 2616 Unauthorized: /api/placements/dashboard/
+INFO 2026-06-06 21:55:48,023 log 11236 19352 "OPTIONS /api/token/refresh/ HTTP/1.1" 200 0
+WARNING 2026-06-06 21:55:48,024 log 11236 2616 "GET /api/placements/dashboard/ HTTP/1.1" 401 84
+INFO 2026-06-06 21:55:48,761 log 11236 2616 "POST /api/token/refresh/ HTTP/1.1" 200 244
+INFO 2026-06-06 21:55:48,770 log 11236 19352 "POST /api/token/refresh/ HTTP/1.1" 200 244
+ERROR 2026-06-06 21:55:49,140 log 11236 19352 Internal Server Error: /api/placements/dashboard/
+ERROR 2026-06-06 21:55:49,141 log 11236 19352 "GET /api/placements/dashboard/ HTTP/1.1" 500 72
+ERROR 2026-06-06 21:55:49,186 log 11236 19352 Internal Server Error: /api/placements/dashboard/
+ERROR 2026-06-06 21:55:49,187 log 11236 19352 "GET /api/placements/dashboard/ HTTP/1.1" 500 72
