@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound, ValidationError, PermissionDenied
 from django.utils import timezone
-from django.db.models import Q, Count
+from django.db.models import Q, Count, Avg
 from .models import WeeklyLog, SupervisorReview
 from .serializers import WeeklyLogSerializer, SupervisorReviewSerializer
 from placements.models import InternshipPlacement

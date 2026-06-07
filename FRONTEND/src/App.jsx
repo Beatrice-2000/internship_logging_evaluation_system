@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useContext } from 'react';
 
-// ✅ Lowercase 'context' — matches your actual file: src/context/AuthContext.jsx
 import { AuthProvider, AuthContext } from './context/AuthContext';
 import ProtectedRoute from './Components/auth/ProtectedRoute';
 import MainLayout     from './Components/layout/MainLayout';
@@ -37,15 +36,9 @@ import AdminStatisticsPage     from './pages/admin/AdminStatisticsPage';
 
 import './styles/index.css';
 
-// ─────────────────────────────────────────────
-// AppRoutes lives INSIDE <AuthProvider> so
-// useContext(AuthContext) is always defined here
-// ─────────────────────────────────────────────
 function AppRoutes() {
   const { user, loading } = useContext(AuthContext);
 
-  // Wait for localStorage check to finish before rendering routes
-  // This prevents a flash-redirect to /login on hard refresh
   if (loading) {
     return (
       <div style={{
@@ -69,7 +62,7 @@ function AppRoutes() {
       student:              '/student/dashboard',
       workplace_supervisor: '/supervisor/dashboard',
       academic_supervisor:  '/academic/dashboard',
-      admin:                '/admin/dashboard',
+      administrator:        '/admin/dashboard',
     };
     return map[user.role] || '/login';
   };
@@ -121,7 +114,7 @@ function AppRoutes() {
       {/* ── Administrator ── */}
       <Route
         path="/admin"
-        element={<ProtectedRoute roles={['admin']}><MainLayout /></ProtectedRoute>}
+        element={<ProtectedRoute roles={['administrator']}><MainLayout /></ProtectedRoute>}
       >
         <Route index             element={<Navigate to="dashboard" replace />} />
         <Route path="dashboard"  element={<AdminDashboard />} />
@@ -137,9 +130,6 @@ function AppRoutes() {
   );
 }
 
-// ─────────────────────────────────────────────
-// App only sets up providers — never reads context
-// ─────────────────────────────────────────────
 export default function App() {
   return (
     <BrowserRouter>

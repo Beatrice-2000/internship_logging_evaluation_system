@@ -91,3 +91,162 @@ ERROR 2026-06-06 21:55:49,140 log 11236 19352 Internal Server Error: /api/placem
 ERROR 2026-06-06 21:55:49,141 log 11236 19352 "GET /api/placements/dashboard/ HTTP/1.1" 500 72
 ERROR 2026-06-06 21:55:49,186 log 11236 19352 Internal Server Error: /api/placements/dashboard/
 ERROR 2026-06-06 21:55:49,187 log 11236 19352 "GET /api/placements/dashboard/ HTTP/1.1" 500 72
+INFO 2026-06-07 09:33:14,255 log 11236 15112 "OPTIONS /api/placements/dashboard/ HTTP/1.1" 200 0
+INFO 2026-06-07 09:33:14,259 log 11236 15564 "OPTIONS /api/logbook/dashboard/ HTTP/1.1" 200 0
+INFO 2026-06-07 09:33:14,262 log 11236 18420 "OPTIONS /api/placements/dashboard/ HTTP/1.1" 200 0
+INFO 2026-06-07 09:33:14,265 log 11236 8708 "OPTIONS /api/logbook/dashboard/ HTTP/1.1" 200 0
+WARNING 2026-06-07 09:33:14,728 log 11236 15564 Unauthorized: /api/placements/dashboard/
+WARNING 2026-06-07 09:33:14,892 log 11236 15564 "GET /api/placements/dashboard/ HTTP/1.1" 401 84
+INFO 2026-06-07 09:33:15,089 log 11236 18420 "OPTIONS /api/token/refresh/ HTTP/1.1" 200 0
+WARNING 2026-06-07 09:33:15,091 log 11236 15564 Unauthorized: /api/placements/dashboard/
+WARNING 2026-06-07 09:33:15,235 log 11236 8708 Not Found: /api/logbook/dashboard/
+WARNING 2026-06-07 09:33:15,236 log 11236 15564 "GET /api/placements/dashboard/ HTTP/1.1" 401 84
+WARNING 2026-06-07 09:33:15,236 log 11236 8708 "GET /api/logbook/dashboard/ HTTP/1.1" 404 5430
+WARNING 2026-06-07 09:33:15,369 log 11236 15564 Not Found: /api/logbook/dashboard/
+INFO 2026-06-07 09:33:15,369 log 11236 18420 "POST /api/token/refresh/ HTTP/1.1" 200 244
+INFO 2026-06-07 09:33:15,372 log 11236 8708 "POST /api/token/refresh/ HTTP/1.1" 200 244
+WARNING 2026-06-07 09:33:15,373 log 11236 15564 "GET /api/logbook/dashboard/ HTTP/1.1" 404 5430
+ERROR 2026-06-07 09:33:15,453 log 11236 8708 Internal Server Error: /api/placements/dashboard/
+ERROR 2026-06-07 09:33:15,476 log 11236 8708 "GET /api/placements/dashboard/ HTTP/1.1" 500 72
+ERROR 2026-06-07 09:33:15,554 log 11236 8708 Internal Server Error: /api/placements/dashboard/
+ERROR 2026-06-07 09:33:15,556 log 11236 8708 "GET /api/placements/dashboard/ HTTP/1.1" 500 72
+INFO 2026-06-07 09:55:39,056 log 11236 3840 "OPTIONS /api/supervisor/reviews/ HTTP/1.1" 200 0
+INFO 2026-06-07 09:55:39,161 log 11236 1864 "OPTIONS /api/logs/dashboard/ HTTP/1.1" 200 0
+INFO 2026-06-07 09:55:39,161 log 11236 7872 "OPTIONS /api/supervisor/reviews/ HTTP/1.1" 200 0
+INFO 2026-06-07 09:55:39,201 log 11236 11068 "OPTIONS /api/logs/dashboard/ HTTP/1.1" 200 0
+INFO 2026-06-07 09:55:40,339 log 11236 3840 "GET /api/supervisor/reviews/ HTTP/1.1" 200 34
+INFO 2026-06-07 09:55:40,444 log 11236 3840 "GET /api/supervisor/reviews/ HTTP/1.1" 200 34
+ERROR 2026-06-07 09:55:43,997 log 11236 1864 Internal Server Error: /api/logs/dashboard/
+ERROR 2026-06-07 09:55:43,999 log 11236 1864 "GET /api/logs/dashboard/ HTTP/1.1" 500 72
+ERROR 2026-06-07 09:55:44,112 log 11236 1864 Internal Server Error: /api/logs/dashboard/
+ERROR 2026-06-07 09:55:44,121 log 11236 1864 "GET /api/logs/dashboard/ HTTP/1.1" 500 72
+INFO 2026-06-07 09:56:33,536 log 11236 5484 "GET /api/supervisor/reviews/ HTTP/1.1" 200 34
+INFO 2026-06-07 09:56:33,623 log 11236 5484 "GET /api/supervisor/reviews/ HTTP/1.1" 200 34
+INFO 2026-06-07 09:56:38,013 log 11236 5484 "GET /api/supervisor/reviews/ HTTP/1.1" 200 34
+ERROR 2026-06-07 09:56:38,103 log 11236 4480 Internal Server Error: /api/logs/dashboard/
+ERROR 2026-06-07 09:56:38,116 log 11236 4480 "GET /api/logs/dashboard/ HTTP/1.1" 500 72
+INFO 2026-06-07 09:56:38,126 log 11236 5484 "GET /api/supervisor/reviews/ HTTP/1.1" 200 34
+ERROR 2026-06-07 09:56:38,173 log 11236 4480 Internal Server Error: /api/logs/dashboard/
+ERROR 2026-06-07 09:56:38,174 log 11236 4480 "GET /api/logs/dashboard/ HTTP/1.1" 500 72
+INFO 2026-06-07 10:05:08,112 autoreload 11236 17884 C:\Users\Kaladi\Documents\GitHub\internship_logging_evaluation_system\BACKEND\logbook\views.py changed, reloading.
+INFO 2026-06-07 10:05:34,772 autoreload 12684 9308 Watching for file changes with StatReloader
+WARNING 2026-06-07 10:05:47,209 log 12684 10564 Unauthorized: /api/supervisor/reviews/
+WARNING 2026-06-07 10:05:47,209 log 12684 2604 Unauthorized: /api/logs/dashboard/
+WARNING 2026-06-07 10:05:47,211 log 12684 10564 "GET /api/supervisor/reviews/ HTTP/1.1" 401 84
+WARNING 2026-06-07 10:05:47,211 log 12684 2604 "GET /api/logs/dashboard/ HTTP/1.1" 401 84
+WARNING 2026-06-07 10:05:47,245 log 12684 2604 Unauthorized: /api/logs/dashboard/
+WARNING 2026-06-07 10:05:47,259 log 12684 2604 "GET /api/logs/dashboard/ HTTP/1.1" 401 84
+WARNING 2026-06-07 10:05:47,267 log 12684 10564 Unauthorized: /api/supervisor/reviews/
+WARNING 2026-06-07 10:05:47,288 log 12684 10564 "GET /api/supervisor/reviews/ HTTP/1.1" 401 84
+INFO 2026-06-07 10:05:47,370 log 12684 2604 "POST /api/token/refresh/ HTTP/1.1" 200 244
+INFO 2026-06-07 10:05:47,376 log 12684 10564 "POST /api/token/refresh/ HTTP/1.1" 200 244
+INFO 2026-06-07 10:05:47,379 log 12684 18692 "POST /api/token/refresh/ HTTP/1.1" 200 244
+INFO 2026-06-07 10:05:47,428 log 12684 2604 "POST /api/token/refresh/ HTTP/1.1" 200 244
+INFO 2026-06-07 10:05:47,451 log 12684 18692 "GET /api/supervisor/reviews/ HTTP/1.1" 200 34
+INFO 2026-06-07 10:05:47,477 log 12684 18692 "GET /api/supervisor/reviews/ HTTP/1.1" 200 34
+ERROR 2026-06-07 10:05:47,824 log 12684 10564 Internal Server Error: /api/logs/dashboard/
+ERROR 2026-06-07 10:05:47,825 log 12684 10564 "GET /api/logs/dashboard/ HTTP/1.1" 500 72
+ERROR 2026-06-07 10:05:47,885 log 12684 10564 Internal Server Error: /api/logs/dashboard/
+ERROR 2026-06-07 10:05:47,887 log 12684 10564 "GET /api/logs/dashboard/ HTTP/1.1" 500 72
+INFO 2026-06-07 10:43:04,409 autoreload 18800 9372 Watching for file changes with StatReloader
+INFO 2026-06-07 10:43:22,069 log 18800 4796 "OPTIONS /api/auth/login/ HTTP/1.1" 200 0
+INFO 2026-06-07 10:43:24,395 log 18800 4796 "POST /api/auth/login/ HTTP/1.1" 200 640
+INFO 2026-06-07 10:43:24,713 log 18800 4796 "OPTIONS /api/evaluations/score/1/ HTTP/1.1" 200 0
+INFO 2026-06-07 10:43:24,783 log 18800 4796 "GET /api/placements/dashboard/ HTTP/1.1" 200 118
+WARNING 2026-06-07 10:43:24,880 log 18800 4796 Not Found: /api/logbook/dashboard/
+WARNING 2026-06-07 10:43:24,881 log 18800 4796 "GET /api/logbook/dashboard/ HTTP/1.1" 404 5430
+INFO 2026-06-07 10:43:24,919 log 18800 4796 "GET /api/placements/dashboard/ HTTP/1.1" 200 118
+WARNING 2026-06-07 10:43:24,950 log 18800 4796 Not Found: /api/logbook/dashboard/
+WARNING 2026-06-07 10:43:24,965 log 18800 4796 "GET /api/logbook/dashboard/ HTTP/1.1" 404 5430
+ERROR 2026-06-07 10:43:24,977 log 18800 3600 Internal Server Error: /api/evaluations/score/1/
+ERROR 2026-06-07 10:43:24,981 log 18800 3600 "GET /api/evaluations/score/1/ HTTP/1.1" 500 72
+ERROR 2026-06-07 10:43:25,006 log 18800 3600 Internal Server Error: /api/evaluations/score/1/
+ERROR 2026-06-07 10:43:25,007 log 18800 3600 "GET /api/evaluations/score/1/ HTTP/1.1" 500 72
+INFO 2026-06-07 10:43:29,372 log 18800 4796 "OPTIONS /api/placements/ HTTP/1.1" 200 0
+INFO 2026-06-07 10:43:29,373 log 18800 3600 "OPTIONS /api/placements/ HTTP/1.1" 200 0
+INFO 2026-06-07 10:43:29,387 log 18800 4796 "GET /api/placements/ HTTP/1.1" 200 24
+INFO 2026-06-07 10:43:29,398 log 18800 4796 "GET /api/placements/ HTTP/1.1" 200 24
+INFO 2026-06-07 10:43:29,413 log 18800 4796 "OPTIONS /api/logs/ HTTP/1.1" 200 0
+INFO 2026-06-07 10:43:29,439 log 18800 4796 "GET /api/logs/ HTTP/1.1" 200 24
+INFO 2026-06-07 10:43:29,467 log 18800 4796 "GET /api/logs/ HTTP/1.1" 200 24
+WARNING 2026-06-07 10:43:36,096 log 18800 3600 Not Found: /api/logbook/dashboard/
+WARNING 2026-06-07 10:43:36,101 log 18800 3600 "GET /api/logbook/dashboard/ HTTP/1.1" 404 5430
+INFO 2026-06-07 10:43:36,104 log 18800 4796 "GET /api/placements/dashboard/ HTTP/1.1" 200 118
+WARNING 2026-06-07 10:43:36,127 log 18800 15320 Not Found: /api/logbook/dashboard/
+ERROR 2026-06-07 10:43:36,130 log 18800 13004 Internal Server Error: /api/evaluations/score/1/
+WARNING 2026-06-07 10:43:36,137 log 18800 15320 "GET /api/logbook/dashboard/ HTTP/1.1" 404 5430
+ERROR 2026-06-07 10:43:36,142 log 18800 13004 "GET /api/evaluations/score/1/ HTTP/1.1" 500 72
+INFO 2026-06-07 10:43:36,148 log 18800 4796 "GET /api/placements/dashboard/ HTTP/1.1" 200 118
+ERROR 2026-06-07 10:43:36,184 log 18800 13004 Internal Server Error: /api/evaluations/score/1/
+ERROR 2026-06-07 10:43:36,185 log 18800 13004 "GET /api/evaluations/score/1/ HTTP/1.1" 500 72
+INFO 2026-06-07 10:55:54,030 autoreload 10128 9024 Watching for file changes with StatReloader
+INFO 2026-06-07 10:56:15,841 log 10128 13372 "OPTIONS /api/student/placement/ HTTP/1.1" 200 0
+INFO 2026-06-07 10:56:15,843 log 10128 12624 "OPTIONS /api/student/placement/ HTTP/1.1" 200 0
+INFO 2026-06-07 10:56:16,022 log 10128 13372 "GET /api/student/placement/ HTTP/1.1" 200 52
+ERROR 2026-06-07 10:56:16,069 log 10128 4632 Internal Server Error: /api/evaluations/score/1/
+ERROR 2026-06-07 10:56:16,085 log 10128 4632 "GET /api/evaluations/score/1/ HTTP/1.1" 500 72
+INFO 2026-06-07 10:56:16,086 log 10128 7424 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+INFO 2026-06-07 10:56:16,157 log 10128 13372 "GET /api/student/placement/ HTTP/1.1" 200 52
+INFO 2026-06-07 10:56:16,195 log 10128 7424 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+ERROR 2026-06-07 10:56:16,204 log 10128 4632 Internal Server Error: /api/evaluations/score/1/
+ERROR 2026-06-07 10:56:16,212 log 10128 4632 "GET /api/evaluations/score/1/ HTTP/1.1" 500 72
+INFO 2026-06-07 10:56:17,799 log 10128 4632 "GET /api/placements/ HTTP/1.1" 200 24
+INFO 2026-06-07 10:56:17,811 log 10128 4632 "GET /api/placements/ HTTP/1.1" 200 24
+INFO 2026-06-07 10:56:17,821 log 10128 7424 "GET /api/logs/ HTTP/1.1" 200 24
+INFO 2026-06-07 10:56:17,842 log 10128 7424 "GET /api/logs/ HTTP/1.1" 200 24
+INFO 2026-06-07 10:56:35,874 log 10128 7424 "OPTIONS /api/placements/my-placement/ HTTP/1.1" 200 0
+INFO 2026-06-07 10:56:35,875 log 10128 4632 "OPTIONS /api/placements/my-placement/ HTTP/1.1" 200 0
+INFO 2026-06-07 10:56:35,889 log 10128 4632 "GET /api/placements/my-placement/ HTTP/1.1" 200 52
+INFO 2026-06-07 10:56:35,904 log 10128 4632 "GET /api/placements/my-placement/ HTTP/1.1" 200 52
+INFO 2026-06-07 10:56:59,601 log 10128 7424 "GET /api/student/placement/ HTTP/1.1" 200 52
+ERROR 2026-06-07 10:56:59,610 log 10128 13372 Internal Server Error: /api/evaluations/score/1/
+ERROR 2026-06-07 10:56:59,613 log 10128 13372 "GET /api/evaluations/score/1/ HTTP/1.1" 500 72
+INFO 2026-06-07 10:56:59,617 log 10128 4632 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+ERROR 2026-06-07 10:56:59,661 log 10128 13372 Internal Server Error: /api/evaluations/score/1/
+INFO 2026-06-07 10:56:59,650 log 10128 7424 "GET /api/student/placement/ HTTP/1.1" 200 52
+ERROR 2026-06-07 10:56:59,697 log 10128 13372 "GET /api/evaluations/score/1/ HTTP/1.1" 500 72
+INFO 2026-06-07 10:56:59,702 log 10128 4632 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+ERROR 2026-06-07 10:57:08,747 log 10128 7424 Internal Server Error: /api/evaluations/score/1/
+INFO 2026-06-07 10:57:08,749 log 10128 4632 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+ERROR 2026-06-07 10:57:08,749 log 10128 7424 "GET /api/evaluations/score/1/ HTTP/1.1" 500 72
+INFO 2026-06-07 10:57:08,756 log 10128 13372 "GET /api/student/placement/ HTTP/1.1" 200 52
+INFO 2026-06-07 10:57:08,811 log 10128 4632 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+ERROR 2026-06-07 10:57:08,837 log 10128 7424 Internal Server Error: /api/evaluations/score/1/
+INFO 2026-06-07 10:57:08,862 log 10128 13372 "GET /api/student/placement/ HTTP/1.1" 200 52
+ERROR 2026-06-07 10:57:08,881 log 10128 7424 "GET /api/evaluations/score/1/ HTTP/1.1" 500 72
+INFO 2026-06-07 11:02:25,208 autoreload 10128 9024 C:\Users\Kaladi\Documents\GitHub\internship_logging_evaluation_system\BACKEND\evaluations\views.py changed, reloading.
+INFO 2026-06-07 11:02:27,958 autoreload 7732 6760 Watching for file changes with StatReloader
+INFO 2026-06-07 11:02:36,329 log 7732 10480 "GET /api/student/placement/ HTTP/1.1" 200 52
+INFO 2026-06-07 11:02:36,329 log 7732 16224 "GET /api/evaluations/score/1/ HTTP/1.1" 200 119
+INFO 2026-06-07 11:02:36,378 log 7732 18208 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+INFO 2026-06-07 11:02:36,392 log 7732 10480 "GET /api/student/placement/ HTTP/1.1" 200 52
+INFO 2026-06-07 11:02:36,412 log 7732 16224 "GET /api/evaluations/score/1/ HTTP/1.1" 200 119
+INFO 2026-06-07 11:02:36,432 log 7732 18208 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+INFO 2026-06-07 11:04:10,878 log 7732 18208 "OPTIONS /api/auth/register/ HTTP/1.1" 200 0
+INFO 2026-06-07 11:04:12,962 log 7732 18208 "POST /api/auth/register/ HTTP/1.1" 201 690
+INFO 2026-06-07 11:04:23,755 log 7732 18208 "POST /api/auth/login/ HTTP/1.1" 200 665
+INFO 2026-06-07 11:04:32,641 log 7732 18208 "GET /api/placements/ HTTP/1.1" 200 24
+INFO 2026-06-07 11:04:32,657 log 7732 18208 "GET /api/placements/ HTTP/1.1" 200 24
+INFO 2026-06-07 11:07:47,258 log 7732 18208 "POST /api/auth/register/ HTTP/1.1" 201 671
+INFO 2026-06-07 11:08:04,498 log 7732 18208 "POST /api/auth/login/ HTTP/1.1" 200 665
+INFO 2026-06-07 11:08:28,574 log 7732 18208 "POST /api/auth/login/ HTTP/1.1" 200 646
+INFO 2026-06-07 11:13:46,542 log 7732 7644 "OPTIONS /api/users/ HTTP/1.1" 200 0
+INFO 2026-06-07 11:13:46,546 log 7732 13864 "OPTIONS /api/users/ HTTP/1.1" 200 0
+INFO 2026-06-07 11:13:46,585 log 7732 4368 "GET /api/placements/ HTTP/1.1" 200 24
+INFO 2026-06-07 11:13:46,603 log 7732 14620 "GET /api/logs/ HTTP/1.1" 200 24
+INFO 2026-06-07 11:13:46,638 log 7732 13864 "GET /api/users/ HTTP/1.1" 200 494
+INFO 2026-06-07 11:13:46,802 log 7732 14620 "GET /api/placements/ HTTP/1.1" 200 24
+INFO 2026-06-07 11:13:46,810 log 7732 4368 "GET /api/logs/ HTTP/1.1" 200 24
+INFO 2026-06-07 11:13:46,821 log 7732 13864 "GET /api/users/ HTTP/1.1" 200 494
+INFO 2026-06-07 11:13:52,614 log 7732 13864 "GET /api/placements/ HTTP/1.1" 200 24
+INFO 2026-06-07 11:13:52,631 log 7732 4368 "GET /api/users/ HTTP/1.1" 200 494
+INFO 2026-06-07 11:13:52,632 log 7732 13864 "GET /api/placements/ HTTP/1.1" 200 24
+INFO 2026-06-07 11:13:52,658 log 7732 4368 "GET /api/users/ HTTP/1.1" 200 494
+INFO 2026-06-07 11:14:47,916 log 7732 4368 "POST /api/auth/register/ HTTP/1.1" 201 714
+INFO 2026-06-07 11:15:03,482 log 7732 9204 "POST /api/auth/login/ HTTP/1.1" 200 689
+INFO 2026-06-07 11:15:03,682 log 7732 9204 "GET /api/logs/dashboard/ HTTP/1.1" 200 178
+INFO 2026-06-07 11:15:03,747 log 7732 9204 "GET /api/logs/dashboard/ HTTP/1.1" 200 178
+INFO 2026-06-07 11:15:11,489 log 7732 9204 "GET /api/supervisor/reviews/ HTTP/1.1" 200 34
+INFO 2026-06-07 11:15:11,503 log 7732 9204 "GET /api/supervisor/reviews/ HTTP/1.1" 200 34
+INFO 2026-06-07 11:15:19,371 log 7732 9204 "GET /api/logs/dashboard/ HTTP/1.1" 200 178
+INFO 2026-06-07 11:15:19,391 log 7732 9204 "GET /api/logs/dashboard/ HTTP/1.1" 200 178
