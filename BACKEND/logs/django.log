@@ -368,3 +368,4 @@ INFO 2026-06-07 21:02:02,375 autoreload 19704 17560 C:\Users\kkena\internship_lo
 INFO 2026-06-07 21:02:03,462 autoreload 18496 3988 Watching for file changes with StatReloader
 INFO 2026-06-07 21:08:03,772 autoreload 18496 3988 C:\Users\kkena\internship_logging_evaluation_system\BACKEND\logbook\serializers.py changed, reloading.
 INFO 2026-06-07 21:08:04,832 autoreload 6716 5652 Watching for file changes with StatReloader
+INFO 2026-06-07 21:58:50,439 autoreload 3176 19348 Watching for file changes with StatReloader

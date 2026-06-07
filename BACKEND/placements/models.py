@@ -5,21 +5,6 @@ import os
 from django.core.validators import FileExtensionValidator
 from decimal import Decimal
 
-def validate_file_size(file):
-    """
-    Validate that the uploaded file is not too large.
-    Maximum size: 10MB
-    """
-    file_size = file.size
-    limit_mb = 10
-    if file_size > limit_mb * 1024 * 1024:
-        raise ValidationError(f'File size must not exceed {limit_mb}MB')
-
-
-def placement_letter_path(instance, filename):
-    """Upload acceptance letters to: media/placement_letters/<student_id>/<filename>"""
-    return f'placement_letters/{instance.student.id}/{filename}'
-
 
 class InternshipPlacement(models.Model):
     STATUS_CHOICES = [
@@ -59,12 +44,6 @@ class InternshipPlacement(models.Model):
         default='pending'
     )
 
-    # Acceptance letter uploaded by the student
-    acceptance_letter = models.FileField(
-        upload_to=placement_letter_path,
-        null=True, blank=True
-    )
-    letter_submitted_at = models.DateTimeField(null=True, blank=True)
 
     # Computed total score from evaluations
     total_score = models.DecimalField(
