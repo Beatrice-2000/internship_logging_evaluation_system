@@ -22,7 +22,7 @@ export default function LoginPage() {
         student: '/student/dashboard',
         workplace_supervisor: '/supervisor/dashboard',
         academic_supervisor: '/academic/dashboard',
-        admin: '/admin/dashboard',
+        administrator: '/admin/dashboard',
       }[user.role] || '/';
       navigate(redirectTo, { replace: true });
     } catch (err) {
