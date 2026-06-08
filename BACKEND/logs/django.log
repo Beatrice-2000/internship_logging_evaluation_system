@@ -396,3 +396,34 @@ INFO 2026-06-07 23:00:54,195 log 17420 18388 "GET /api/student/placement/ HTTP/1
 INFO 2026-06-07 23:00:54,197 log 17420 7452 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
 INFO 2026-06-07 23:00:54,203 log 17420 18944 "GET /api/evaluations/score/5/ HTTP/1.1" 200 121
 INFO 2026-06-07 23:00:54,208 log 17420 18388 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+INFO 2026-06-07 23:15:49,823 autoreload 17752 15020 Watching for file changes with StatReloader
+INFO 2026-06-07 23:16:04,702 log 17752 2924 "GET /api/student/placement/ HTTP/1.1" 200 52
+INFO 2026-06-07 23:16:04,702 log 17752 20248 "GET /api/evaluations/score/5/ HTTP/1.1" 200 121
+INFO 2026-06-07 23:16:04,708 log 17752 18512 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+INFO 2026-06-07 23:16:04,717 log 17752 2924 "GET /api/student/placement/ HTTP/1.1" 200 52
+INFO 2026-06-07 23:16:04,717 log 17752 20248 "GET /api/evaluations/score/5/ HTTP/1.1" 200 121
+INFO 2026-06-07 23:16:04,723 log 17752 18512 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+INFO 2026-06-07 23:17:51,372 log 17752 18512 "POST /api/auth/login/ HTTP/1.1" 200 649
+INFO 2026-06-07 23:17:51,412 log 17752 20248 "GET /api/student/placement/ HTTP/1.1" 200 52
+INFO 2026-06-07 23:17:51,417 log 17752 2924 "GET /api/evaluations/score/5/ HTTP/1.1" 200 121
+INFO 2026-06-07 23:17:51,423 log 17752 18512 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+INFO 2026-06-07 23:17:51,424 log 17752 20248 "GET /api/student/placement/ HTTP/1.1" 200 52
+INFO 2026-06-07 23:17:51,428 log 17752 2924 "GET /api/evaluations/score/5/ HTTP/1.1" 200 121
+INFO 2026-06-07 23:17:51,433 log 17752 18512 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+INFO 2026-06-07 23:18:12,406 log 17752 18512 "POST /api/auth/login/ HTTP/1.1" 200 639
+INFO 2026-06-07 23:18:15,800 log 17752 18512 "POST /api/auth/login/ HTTP/1.1" 200 639
+INFO 2026-06-07 23:18:19,804 log 17752 18512 "POST /api/auth/login/ HTTP/1.1" 200 639
+INFO 2026-06-07 23:19:19,127 log 17752 18512 "POST /api/auth/login/ HTTP/1.1" 200 639
+INFO 2026-06-07 23:19:32,188 log 17752 18512 "POST /api/auth/login/ HTTP/1.1" 200 649
+INFO 2026-06-07 23:19:32,227 log 17752 2924 "GET /api/student/placement/ HTTP/1.1" 200 52
+INFO 2026-06-07 23:19:32,230 log 17752 20248 "GET /api/evaluations/score/5/ HTTP/1.1" 200 121
+INFO 2026-06-07 23:19:32,238 log 17752 18512 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+INFO 2026-06-07 23:19:32,240 log 17752 2924 "GET /api/student/placement/ HTTP/1.1" 200 52
+INFO 2026-06-07 23:19:32,243 log 17752 20248 "GET /api/evaluations/score/5/ HTTP/1.1" 200 121
+INFO 2026-06-07 23:19:32,248 log 17752 18512 "GET /api/logs/dashboard/ HTTP/1.1" 200 180
+INFO 2026-06-07 23:19:36,174 log 17752 18512 "OPTIONS /api/placements/ HTTP/1.1" 200 0
+INFO 2026-06-07 23:19:36,174 log 17752 20248 "OPTIONS /api/placements/ HTTP/1.1" 200 0
+ERROR 2026-06-07 23:19:36,191 log 17752 20248 Internal Server Error: /api/placements/
+ERROR 2026-06-07 23:19:36,191 log 17752 20248 "GET /api/placements/ HTTP/1.1" 500 72
+ERROR 2026-06-07 23:19:36,200 log 17752 18512 Internal Server Error: /api/placements/
+ERROR 2026-06-07 23:19:36,201 log 17752 18512 "GET /api/placements/ HTTP/1.1" 500 72
