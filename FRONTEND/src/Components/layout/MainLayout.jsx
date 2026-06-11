@@ -7,7 +7,6 @@ const NAV = {
     { to: '/student/dashboard',  label: 'Dashboard' },
     { to: '/student/logbook',    label: 'My Logbook' },
     { to: '/student/placement',  label: 'My Placement' },
-    { to: '/student/evaluation', label: 'Evaluation' },
   ],
   workplace_supervisor: [
     { to: '/supervisor/dashboard', label: 'Dashboard' },
