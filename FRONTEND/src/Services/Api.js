@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:8000/api',
+  baseURL: 'https://iles-frontend-3zux.onrender.com',
 });
 
 // Attach access token to every request
