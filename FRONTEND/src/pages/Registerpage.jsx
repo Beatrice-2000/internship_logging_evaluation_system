@@ -55,6 +55,7 @@ export default function RegisterPage() {
         role: formData.role,
         password: formData.password,
         password2: formData.confirmPassword,
+        phone_number: '',
       });
       navigate('/login', { state: { registered: true } });
     } catch (err) {
