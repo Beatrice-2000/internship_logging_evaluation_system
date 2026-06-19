@@ -47,7 +47,7 @@ export default function RegisterPage() {
 
     setLoading(true);
     try {
-      await API.post('/auth/register/', {
+      await API.post('/api/auth/register/', {
         username: formData.username,
         email: formData.email,
         first_name: formData.first_name,
