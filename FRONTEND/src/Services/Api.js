@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://iles-frontend-3zux.onrender.com',
+  baseURL: 'https://iles-backend-sdd4.onrender.com',
 });
 
 // Attach access token to every request
@@ -24,7 +24,7 @@ API.interceptors.response.use(
       original._retry = true;
       try {
         const refresh = localStorage.getItem('refresh');
-        const res = await axios.post('http://localhost:8000/api/token/refresh/', {
+        const res = await axios.post('https://iles-backend-sdd4.onrender.com/api/token/refresh/', {
           refresh,
         });
         const newAccess = res.data.access;
