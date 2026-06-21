@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://iles-backend-sdd4.onrender.com',
+  baseURL: 'https://iles-backend-sdd4.onrender.com/api',
 });
 
 // Attach access token to every request
